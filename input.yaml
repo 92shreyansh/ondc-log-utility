@@ -1,0 +1,45 @@
+api:
+  search:
+    - id: search
+      data:
+        $ref: "./input/search.json"
+  on_search:
+    - id: on_search
+      data:
+        $ref: "./input/on_search.json"
+  select:
+    - id: 1
+      data:
+        $ref: "./input/select.json"
+  on_select:
+    - id: 1
+      data:
+        $ref: "./input/on_select.json"
+  init:
+    - id: 1
+      data:
+        $ref: "./input/init.json"
+  on_init:
+    - id: 1
+      data:
+        $ref: "./input/on_init.json"
+  confirm:
+    - id: 1
+      data:
+        $ref: "./input/confirm.json"
+  on_confirm:
+    - id: 1
+      data:
+        $ref: "./input/on_confirm.json"
+  track:
+    - id: track
+      data:
+        $ref: "./input/track.json"
+  on_track:
+    - id: on_track
+      data:
+        $ref: "./input/on_track.json"
+  on_update:
+    - id: on_update
+      data: 
+        $ref: "./input/on_update.json"

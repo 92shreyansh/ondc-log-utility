@@ -1,0 +1,50 @@
+server:
+  type: BPP 
+  port: 5500 
+log:
+  level: info
+  output_type: file
+  out_file: log_file.log
+logs:
+  search:
+    schema:
+      $ref: "./schema/search.yaml"
+  on_search:
+    schema:
+      $ref: "./schema/on_search.yaml"
+  select:
+    schema: 
+      $ref: "./schema/select.yaml"
+  on_select:
+    schema:
+      $ref: "./schema/on_select.yaml"
+  init:
+    schema:
+      $ref: "./schema/init.yaml"
+  on_init:
+    schema:
+      $ref: "./schema/on_init.yaml"
+  confirm:
+    schema:
+      $ref: "./schema/confirm.yaml"
+  on_confirm:
+    schema:
+      $ref: "./schema/on_confirm.yaml"
+  update:
+    schema:
+      $ref: "./schema/update.yaml"
+  on_update:
+    schema:
+      $ref: "./schema/on_update.yaml"
+  track:
+    schema:
+      $ref: "./schema/track.yaml"
+  on_track:
+    schema:
+      $ref: "./schema/on_track.yaml"
+  cancel:
+    schema:
+      $ref: "./schema/track.yaml"
+  on_cancel:
+    schema:
+      $ref: "./schema/on_track.yaml"
