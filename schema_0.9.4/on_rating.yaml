@@ -1,0 +1,135 @@
+type: object
+additionalProperties: false
+properties:
+  context:
+    description: Describes a beckn message context
+    type: object
+    additionalProperties: false
+    properties:
+      domain:
+        description: Describes the domain of an object
+        type: string
+      country:
+        type: string
+        description: Country code as per ISO 3166-1 and ISO 3166-2 format
+      city:
+        type: string
+        description: City code
+      action:
+        type: string
+        description: Defines the Beckn API call. Any actions other than the enumerated
+          actions are not supported by Beckn Protocol
+        enum:
+          - search
+          - select
+          - init
+          - confirm
+          - update
+          - status
+          - track
+          - cancel
+          - rating
+          - support
+          - on_search
+          - on_select
+          - on_init
+          - on_confirm
+          - on_update
+          - on_status
+          - on_track
+          - on_cancel
+          - on_rating
+          - on_support
+      core_version:
+        type: string
+        description: Version of Beckn core API specification being used
+      bap_id:
+        type: string
+        description: Unique id of the BAP. By default it is the fully qualified domain
+          name of the BAP
+      bap_uri:
+        type: string
+        format: uri
+        description: URI of the BAP for accepting callbacks. Must have the same domain
+          name as the bap_id
+      bpp_id:
+        type: string
+        description: Unique id of the BPP. By default it is the fully qualified domain
+          name of the BPP
+      bpp_uri:
+        type: string
+        format: uri
+        description: URI of the BPP. Must have the same domain name as the bap_id
+      transaction_id:
+        type: string
+        description: This is a unique value which persists across all API calls from
+          search through confirm
+      message_id:
+        type: string
+        description: This is a unique value which persists during a request / callback cycle
+      timestamp:
+        type: string
+        format: date-time
+        description: Time of request generation in RFC3339 format
+      key:
+        type: string
+        description: The encryption public key of the sender
+      max_callbacks:
+        description: Number of callbacks expected. If this value is -1, then there is no
+          limit. If it is 0, then no callbacks are expected.
+        type: integer
+        minimum: -1
+      ttl:
+        type: string
+        description: The duration in ISO8601 format after timestamp for which this
+          message holds valid
+    required:
+      - domain
+      - action
+      - country
+      - city
+      - core_version
+      - transaction_id
+      - message_id
+      - bap_id
+      - bap_uri
+      - timestamp
+  message:
+    type: object
+    additionalProperties: false
+    properties:
+      feedback_ack:
+        description: If feedback has been recorded or not
+        type: boolean
+      rating_ack:
+        description: If rating has been recorded or not
+        type: boolean
+  error:
+    description: Describes an error object
+    type: object
+    additionalProperties: false
+    properties:
+      type:
+        type: string
+        enum:
+          - CONTEXT-ERROR
+          - CORE-ERROR
+          - DOMAIN-ERROR
+          - POLICY-ERROR
+          - JSON-SCHEMA-ERROR
+      code:
+        type: string
+        description: Beckn specific error code. For full list of error codes, refer to
+          error_codes.md in the root folder of this repo
+      path:
+        type: string
+        description: Path to json schema generating the error. Used only during json
+          schema validation errors
+      message:
+        type: string
+        description: Human readable message describing the error
+    required:
+      - type
+      - code
+required:
+  - context

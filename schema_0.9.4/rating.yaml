@@ -1,0 +1,147 @@
+type: object
+additionalProperties: false
+properties:
+  context:
+    description: Describes a beckn message context
+    type: object
+    additionalProperties: false
+    properties:
+      domain:
+        description: Describes the domain of an object
+        type: string
+      country:
+        type: string
+        description: Country code as per ISO 3166-1 and ISO 3166-2 format
+      city:
+        type: string
+        description: City code
+      action:
+        type: string
+        description: Defines the Beckn API call. Any actions other than the enumerated
+          actions are not supported by Beckn Protocol
+        enum:
+          - search
+          - select
+          - init
+          - confirm
+          - update
+          - status
+          - track
+          - cancel
+          - rating
+          - support
+          - on_search
+          - on_select
+          - on_init
+          - on_confirm
+          - on_update
+          - on_status
+          - on_track
+          - on_cancel
+          - on_rating
+          - on_support
+      core_version:
+        type: string
+        description: Version of Beckn core API specification being used
+      bap_id:
+        type: string
+        description: Unique id of the BAP. By default it is the fully qualified domain
+          name of the BAP
+      bap_uri:
+        type: string
+        format: uri
+        description: URI of the BAP for accepting callbacks. Must have the same domain
+          name as the bap_id
+      bpp_id:
+        type: string
+        description: Unique id of the BPP. By default it is the fully qualified domain
+          name of the BPP
+      bpp_uri:
+        type: string
+        format: uri
+        description: URI of the BPP. Must have the same domain name as the bap_id
+      transaction_id:
+        type: string
+        description: This is a unique value which persists across all API calls from
+          search through confirm
+      message_id:
+        type: string
+        description: This is a unique value which persists during a request / callback cycle
+      timestamp:
+        type: string
+        format: date-time
+        description: Time of request generation in RFC3339 format
+      key:
+        type: string
+        description: The encryption public key of the sender
+      max_callbacks:
+        description: Number of callbacks expected. If this value is -1, then there is no
+          limit. If it is 0, then no callbacks are expected.
+        type: integer
+        minimum: -1
+      ttl:
+        type: string
+        description: The duration in ISO8601 format after timestamp for which this
+          message holds valid
+    required:
+      - domain
+      - action
+      - country
+      - city
+      - core_version
+      - transaction_id
+      - message_id
+      - bap_id
+      - bap_uri
+      - timestamp
+  message:
+    description: Describes the rating of a person or an object.
+    type: object
+    additionalProperties: false
+    properties:
+      rating_category:
+        description: Category of the object being rated
+        type: string
+      id:
+        description: Id of the object being rated
+        type: string
+      value:
+        description: Rating value given to the object
+        type: number
+        minimum: 0
+      feedback_form:
+        description: Describes a feedback form that a BPP can send to get feedback from
+          the BAP
+        type: array
+        items:
+          description: An element in the feedback form. It can be question or an answer to
+            the question.
+          type: object
+          additionalProperties: false
+          properties:
+            id:
+              type: string
+            parent_id:
+              type: string
+            question:
+              description: Specifies the question to which the answer options will be
+                contained in the child FeedbackFormElements
+              type: string
+            answer:
+              description: Specifies an answer option to which the question will be in the
+                FeedbackFormElement specified in parent_id
+              type: string
+            answer_type:
+              description: Specifies how the answer option should be rendered.
+              type: string
+              enum:
+                - radio
+                - checkbox
+                - text
+      feedback_id:
+        type: string
+        description: This value will be placed in the the $feedback_id url param in case
+          of http/get and in the requestBody http/post requests
+required:
+  - context
+  - message

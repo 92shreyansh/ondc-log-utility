@@ -1,0 +1,3118 @@
+type: object
+additionalProperties: false
+properties:
+  context:
+    description: Describes a beckn message context
+    type: object
+    additionalProperties: false
+    properties:
+      domain:
+        description: Describes the domain of an object
+        type: string
+      country:
+        type: string
+        description: Country code as per ISO 3166-1 and ISO 3166-2 format
+      city:
+        type: string
+        description: City code
+      action:
+        type: string
+        description: Defines the Beckn API call. Any actions other than the enumerated
+          actions are not supported by Beckn Protocol
+        enum:
+          - search
+          - select
+          - init
+          - confirm
+          - update
+          - status
+          - track
+          - cancel
+          - rating
+          - support
+          - on_search
+          - on_select
+          - on_init
+          - on_confirm
+          - on_update
+          - on_status
+          - on_track
+          - on_cancel
+          - on_rating
+          - on_support
+      core_version:
+        type: string
+        description: Version of Beckn core API specification being used
+      bap_id:
+        type: string
+        description: Unique id of the BAP. By default it is the fully qualified domain
+          name of the BAP
+      bap_uri:
+        type: string
+        format: uri
+        description: URI of the BAP for accepting callbacks. Must have the same domain
+          name as the bap_id
+      bpp_id:
+        type: string
+        description: Unique id of the BPP. By default it is the fully qualified domain
+          name of the BPP
+      bpp_uri:
+        type: string
+        format: uri
+        description: URI of the BPP. Must have the same domain name as the bap_id
+      transaction_id:
+        type: string
+        description: This is a unique value which persists across all API calls from
+          search through confirm
+      message_id:
+        type: string
+        description: This is a unique value which persists during a request / callback cycle
+      timestamp:
+        type: string
+        format: date-time
+        description: Time of request generation in RFC3339 format
+      key:
+        type: string
+        description: The encryption public key of the sender
+      max_callbacks:
+        description: Number of callbacks expected. If this value is -1, then there is no
+          limit. If it is 0, then no callbacks are expected.
+        type: integer
+        minimum: -1
+      ttl:
+        type: string
+        description: The duration in ISO8601 format after timestamp for which this
+          message holds valid
+    required:
+      - domain
+      - action
+      - country
+      - city
+      - core_version
+      - transaction_id
+      - message_id
+      - bap_id
+      - bap_uri
+      - timestamp
+  message:
+    type: object
+    additionalProperties: false
+    properties:
+      catalog:
+        description: Describes a BPP catalog
+        type: object
+        additionalProperties: false
+        properties:
+          bpp/descriptor:
+            description: Describes the description of a real-world object.
+            type: object
+            additionalProperties: false
+            properties:
+              name:
+                type: string
+              code:
+                type: string
+              symbol:
+                type: string
+              short_desc:
+                type: string
+              long_desc:
+                type: string
+              images:
+                type: array
+                items:
+                  description: "Image of an object. <br/><br/> A url based image will look like
+                    <br/><br/>```uri:http://path/to/image``` <br/><br/> An image
+                    can also be sent as a data string. For example : <br/><br/>
+                    ```data:js87y34ilhriuho84r3i4```"
+                  type: string
+              audio:
+                type: string
+                format: uri
+              3d_render:
+                type: string
+                format: uri
+          bpp/categories:
+            type: array
+            items:
+              description: Describes a category
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  description: Unique id of the category
+                parent_category_id:
+                  type: string
+                  description: Unique id of the category
+                descriptor:
+                  description: Describes the description of a real-world object.
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    name:
+                      type: string
+                    code:
+                      type: string
+                    symbol:
+                      type: string
+                    short_desc:
+                      type: string
+                    long_desc:
+                      type: string
+                    images:
+                      type: array
+                      items:
+                        description: "Image of an object. <br/><br/> A url based image will look like
+                          <br/><br/>```uri:http://path/to/image``` <br/><br/> An
+                          image can also be sent as a data string. For example :
+                          <br/><br/> ```data:js87y34ilhriuho84r3i4```"
+                        type: string
+                    audio:
+                      type: string
+                      format: uri
+                    3d_render:
+                      type: string
+                      format: uri
+                time:
+                  description: Describes time in its various forms. It can be a single point in
+                    time; duration; or a structured timetable of operations
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    label:
+                      type: string
+                    timestamp:
+                      type: string
+                      format: date-time
+                    duration:
+                      description: Describes duration as per ISO8601 format
+                      type: string
+                    range:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                    days:
+                      type: string
+                      description: comma separated values representing days of the week
+                    schedule:
+                      description: Describes a schedule
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        frequency:
+                          description: Describes duration as per ISO8601 format
+                          type: string
+                        holidays:
+                          type: array
+                          items:
+                            type: string
+                            format: date-time
+                        times:
+                          type: array
+                          items:
+                            type: string
+                            format: date-time
+                tags:
+                  description: A simple key-value store which is used to contain extended
+                    metadata. However, grouped tags can be created using the
+                    recommendations provided in
+                    docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                  type: object
+                  additionalProperties:
+                    type: string
+          bpp/fulfillments:
+            type: array
+            items:
+              description: Describes how a single product/service will be rendered/fulfilled
+                to the end customer
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  description: Unique reference ID to the fulfillment of an order
+                type:
+                  type: string
+                  description: This describes the type of fulfillment
+                provider_id:
+                  type: string
+                  description: Id of the provider
+                rating:
+                  description: Rating value given to the object
+                  type: number
+                  minimum: 0
+                state:
+                  description: Describes a state
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    descriptor:
+                      description: Describes the description of a real-world object.
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        name:
+                          type: string
+                        code:
+                          type: string
+                        symbol:
+                          type: string
+                        short_desc:
+                          type: string
+                        long_desc:
+                          type: string
+                        images:
+                          type: array
+                          items:
+                            description: "Image of an object. <br/><br/> A url based image will look like
+                              <br/><br/>```uri:http://path/to/image```
+                              <br/><br/> An image can also be sent as a data
+                              string. For example : <br/><br/>
+                              ```data:js87y34ilhriuho84r3i4```"
+                            type: string
+                        audio:
+                          type: string
+                          format: uri
+                        3d_render:
+                          type: string
+                          format: uri
+                    updated_at:
+                      type: string
+                      format: date-time
+                    updated_by:
+                      type: string
+                      description: ID of entity which changed the state
+                tracking:
+                  type: boolean
+                  description: Indicates whether the fulfillment allows tracking
+                  default: false
+                customer:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    person:
+                      description: Describes a person.
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: "Describes the name of a person in format:
+                            ./{given_name}/{honorific_prefix}/{first_name}/{mid\
+                            dle_name}/{last_name}/{honorific_suffix}"
+                        image:
+                          description: "Image of an object. <br/><br/> A url based image will look like
+                            <br/><br/>```uri:http://path/to/image``` <br/><br/>
+                            An image can also be sent as a data string. For
+                            example : <br/><br/>
+                            ```data:js87y34ilhriuho84r3i4```"
+                          type: string
+                        dob:
+                          type: string
+                          format: date
+                        gender:
+                          type: string
+                          description: Gender of something, typically a Person, but possibly also
+                            fictional characters, animals, etc. While Male and
+                            Female may be used, text strings are also acceptable
+                            for people who do not identify as a binary gender
+                        cred:
+                          type: string
+                        tags:
+                          description: A simple key-value store which is used to contain extended
+                            metadata. However, grouped tags can be created using
+                            the recommendations provided in
+                            docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                          type: object
+                          additionalProperties:
+                            type: string
+                    contact:
+                      type: object
+                      properties:
+                        phone:
+                          type: string
+                        email:
+                          type: string
+                        tags:
+                          description: A simple key-value store which is used to contain extended
+                            metadata. However, grouped tags can be created using
+                            the recommendations provided in
+                            docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                          type: object
+                          additionalProperties:
+                            type: string
+                agent:
+                  description: Describes an order executor
+                  allOf:
+                    - description: Describes a person.
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: "Describes the name of a person in format:
+                            ./{given_name}/{honorific_prefix}/{first_name}/{mid\
+                            dle_name}/{last_name}/{honorific_suffix}"
+                        image:
+                          description: "Image of an object. <br/><br/> A url based image will look like
+                            <br/><br/>```uri:http://path/to/image``` <br/><br/>
+                            An image can also be sent as a data string. For
+                            example : <br/><br/>
+                            ```data:js87y34ilhriuho84r3i4```"
+                          type: string
+                        dob:
+                          type: string
+                          format: date
+                        gender:
+                          type: string
+                          description: Gender of something, typically a Person, but possibly also
+                            fictional characters, animals, etc. While Male and
+                            Female may be used, text strings are also acceptable
+                            for people who do not identify as a binary gender
+                        cred:
+                          type: string
+                        tags:
+                          description: A simple key-value store which is used to contain extended
+                            metadata. However, grouped tags can be created using
+                            the recommendations provided in
+                            docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                          type: object
+                          additionalProperties:
+                            type: string
+                    - type: object
+                      properties:
+                        phone:
+                          type: string
+                        email:
+                          type: string
+                        tags:
+                          description: A simple key-value store which is used to contain extended
+                            metadata. However, grouped tags can be created using
+                            the recommendations provided in
+                            docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                          type: object
+                          additionalProperties:
+                            type: string
+                    - type: object
+                      properties:
+                        rateable:
+                          description: If the entity can be rated or not
+                          type: boolean
+                person:
+                  description: Describes a person.
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: "Describes the name of a person in format:
+                        ./{given_name}/{honorific_prefix}/{first_name}/{middle_\
+                        name}/{last_name}/{honorific_suffix}"
+                    image:
+                      description: "Image of an object. <br/><br/> A url based image will look like
+                        <br/><br/>```uri:http://path/to/image``` <br/><br/> An
+                        image can also be sent as a data string. For example :
+                        <br/><br/> ```data:js87y34ilhriuho84r3i4```"
+                      type: string
+                    dob:
+                      type: string
+                      format: date
+                    gender:
+                      type: string
+                      description: Gender of something, typically a Person, but possibly also
+                        fictional characters, animals, etc. While Male and
+                        Female may be used, text strings are also acceptable for
+                        people who do not identify as a binary gender
+                    cred:
+                      type: string
+                    tags:
+                      description: A simple key-value store which is used to contain extended
+                        metadata. However, grouped tags can be created using the
+                        recommendations provided in
+                        docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                      type: object
+                      additionalProperties:
+                        type: string
+                contact:
+                  type: object
+                  properties:
+                    phone:
+                      type: string
+                    email:
+                      type: string
+                    tags:
+                      description: A simple key-value store which is used to contain extended
+                        metadata. However, grouped tags can be created using the
+                        recommendations provided in
+                        docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                      type: object
+                      additionalProperties:
+                        type: string
+                vehicle:
+                  description: Describes the properties of a vehicle used in a mobility service
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    category:
+                      type: string
+                    capacity:
+                      type: integer
+                    make:
+                      type: string
+                    model:
+                      type: string
+                    size:
+                      type: string
+                    variant:
+                      type: string
+                    color:
+                      type: string
+                    energy_type:
+                      type: string
+                    registration:
+                      type: string
+                start:
+                  description: Details on the start of fulfillment
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    location:
+                      description: Describes the location of a runtime object.
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        descriptor:
+                          description: Describes the description of a real-world object.
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            name:
+                              type: string
+                            code:
+                              type: string
+                            symbol:
+                              type: string
+                            short_desc:
+                              type: string
+                            long_desc:
+                              type: string
+                            images:
+                              type: array
+                              items:
+                                description: "Image of an object. <br/><br/> A url based image will look like
+                                  <br/><br/>```uri:http://path/to/image```
+                                  <br/><br/> An image can also be sent as a data
+                                  string. For example : <br/><br/>
+                                  ```data:js87y34ilhriuho84r3i4```"
+                                type: string
+                            audio:
+                              type: string
+                              format: uri
+                            3d_render:
+                              type: string
+                              format: uri
+                        gps:
+                          description: Describes a gps coordinate
+                          type: string
+                          pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                        address:
+                          description: Describes an address
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            door:
+                              type: string
+                              description: Door / Shop number of the address
+                            name:
+                              type: string
+                              description: Name of address if applicable. Example, shop name
+                            building:
+                              type: string
+                              description: Name of the building or block
+                            street:
+                              type: string
+                              description: Street name or number
+                            locality:
+                              type: string
+                              description: Name of the locality, apartments
+                            ward:
+                              type: string
+                              description: Name or number of the ward if applicable
+                            city:
+                              type: string
+                              description: City name
+                            state:
+                              type: string
+                              description: State name
+                            country:
+                              type: string
+                              description: Country name
+                            area_code:
+                              type: string
+                              description: Area code. This can be Pincode, ZIP code or any equivalent
+                        station_code:
+                          type: string
+                        city:
+                          description: Describes a city
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            name:
+                              type: string
+                              description: Name of the city
+                            code:
+                              type: string
+                              description: City code
+                        country:
+                          description: Describes a country.
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            name:
+                              type: string
+                              description: Name of the country
+                            code:
+                              type: string
+                              description: Country code as per ISO 3166-1 and ISO 3166-2 format
+                        circle:
+                          description: Describes a circular area on the map
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            gps:
+                              description: Describes a gps coordinate
+                              type: string
+                              pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                            radius:
+                              description: An object representing a scalar quantity.
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                    - CONSTANT
+                                    - VARIABLE
+                                value:
+                                  type: number
+                                estimated_value:
+                                  type: number
+                                computed_value:
+                                  type: number
+                                range:
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    min:
+                                      type: number
+                                    max:
+                                      type: number
+                                unit:
+                                  type: string
+                              required:
+                                - value
+                                - unit
+                          required:
+                            - gps
+                            - radius
+                        polygon:
+                          type: string
+                        3dspace:
+                          type: string
+                        time:
+                          description: Describes time in its various forms. It can be a single point in
+                            time; duration; or a structured timetable of
+                            operations
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            label:
+                              type: string
+                            timestamp:
+                              type: string
+                              format: date-time
+                            duration:
+                              description: Describes duration as per ISO8601 format
+                              type: string
+                            range:
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                start:
+                                  type: string
+                                  format: date-time
+                                end:
+                                  type: string
+                                  format: date-time
+                            days:
+                              type: string
+                              description: comma separated values representing days of the week
+                            schedule:
+                              description: Describes a schedule
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                frequency:
+                                  description: Describes duration as per ISO8601 format
+                                  type: string
+                                holidays:
+                                  type: array
+                                  items:
+                                    type: string
+                                    format: date-time
+                                times:
+                                  type: array
+                                  items:
+                                    type: string
+                                    format: date-time
+                    time:
+                      description: Describes time in its various forms. It can be a single point in
+                        time; duration; or a structured timetable of operations
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        label:
+                          type: string
+                        timestamp:
+                          type: string
+                          format: date-time
+                        duration:
+                          description: Describes duration as per ISO8601 format
+                          type: string
+                        range:
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            start:
+                              type: string
+                              format: date-time
+                            end:
+                              type: string
+                              format: date-time
+                        days:
+                          type: string
+                          description: comma separated values representing days of the week
+                        schedule:
+                          description: Describes a schedule
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            frequency:
+                              description: Describes duration as per ISO8601 format
+                              type: string
+                            holidays:
+                              type: array
+                              items:
+                                type: string
+                                format: date-time
+                            times:
+                              type: array
+                              items:
+                                type: string
+                                format: date-time
+                    instructions:
+                      description: Describes the description of a real-world object.
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        name:
+                          type: string
+                        code:
+                          type: string
+                        symbol:
+                          type: string
+                        short_desc:
+                          type: string
+                        long_desc:
+                          type: string
+                        images:
+                          type: array
+                          items:
+                            description: "Image of an object. <br/><br/> A url based image will look like
+                              <br/><br/>```uri:http://path/to/image```
+                              <br/><br/> An image can also be sent as a data
+                              string. For example : <br/><br/>
+                              ```data:js87y34ilhriuho84r3i4```"
+                            type: string
+                        audio:
+                          type: string
+                          format: uri
+                        3d_render:
+                          type: string
+                          format: uri
+                    contact:
+                      type: object
+                      properties:
+                        phone:
+                          type: string
+                        email:
+                          type: string
+                        tags:
+                          description: A simple key-value store which is used to contain extended
+                            metadata. However, grouped tags can be created using
+                            the recommendations provided in
+                            docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                          type: object
+                          additionalProperties:
+                            type: string
+                    person:
+                      description: Describes a person.
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: "Describes the name of a person in format:
+                            ./{given_name}/{honorific_prefix}/{first_name}/{mid\
+                            dle_name}/{last_name}/{honorific_suffix}"
+                        image:
+                          description: "Image of an object. <br/><br/> A url based image will look like
+                            <br/><br/>```uri:http://path/to/image``` <br/><br/>
+                            An image can also be sent as a data string. For
+                            example : <br/><br/>
+                            ```data:js87y34ilhriuho84r3i4```"
+                          type: string
+                        dob:
+                          type: string
+                          format: date
+                        gender:
+                          type: string
+                          description: Gender of something, typically a Person, but possibly also
+                            fictional characters, animals, etc. While Male and
+                            Female may be used, text strings are also acceptable
+                            for people who do not identify as a binary gender
+                        cred:
+                          type: string
+                        tags:
+                          description: A simple key-value store which is used to contain extended
+                            metadata. However, grouped tags can be created using
+                            the recommendations provided in
+                            docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                          type: object
+                          additionalProperties:
+                            type: string
+                    authorization:
+                      description: Describes an authorization mechanism
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        type:
+                          type: string
+                          description: Type of authorization mechanism used
+                        token:
+                          type: string
+                          description: Token used for authorization
+                        valid_from:
+                          type: string
+                          format: date-time
+                          description: Timestamp in RFC3339 format from which token is valid
+                        valid_to:
+                          type: string
+                          format: date-time
+                          description: Timestamp in RFC3339 format until which token is valid
+                        status:
+                          type: string
+                          description: Status of the token
+                end:
+                  description: Details on the end of fulfillment
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    location:
+                      description: Describes the location of a runtime object.
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        descriptor:
+                          description: Describes the description of a real-world object.
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            name:
+                              type: string
+                            code:
+                              type: string
+                            symbol:
+                              type: string
+                            short_desc:
+                              type: string
+                            long_desc:
+                              type: string
+                            images:
+                              type: array
+                              items:
+                                description: "Image of an object. <br/><br/> A url based image will look like
+                                  <br/><br/>```uri:http://path/to/image```
+                                  <br/><br/> An image can also be sent as a data
+                                  string. For example : <br/><br/>
+                                  ```data:js87y34ilhriuho84r3i4```"
+                                type: string
+                            audio:
+                              type: string
+                              format: uri
+                            3d_render:
+                              type: string
+                              format: uri
+                        gps:
+                          description: Describes a gps coordinate
+                          type: string
+                          pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                        address:
+                          description: Describes an address
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            door:
+                              type: string
+                              description: Door / Shop number of the address
+                            name:
+                              type: string
+                              description: Name of address if applicable. Example, shop name
+                            building:
+                              type: string
+                              description: Name of the building or block
+                            street:
+                              type: string
+                              description: Street name or number
+                            locality:
+                              type: string
+                              description: Name of the locality, apartments
+                            ward:
+                              type: string
+                              description: Name or number of the ward if applicable
+                            city:
+                              type: string
+                              description: City name
+                            state:
+                              type: string
+                              description: State name
+                            country:
+                              type: string
+                              description: Country name
+                            area_code:
+                              type: string
+                              description: Area code. This can be Pincode, ZIP code or any equivalent
+                        station_code:
+                          type: string
+                        city:
+                          description: Describes a city
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            name:
+                              type: string
+                              description: Name of the city
+                            code:
+                              type: string
+                              description: City code
+                        country:
+                          description: Describes a country.
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            name:
+                              type: string
+                              description: Name of the country
+                            code:
+                              type: string
+                              description: Country code as per ISO 3166-1 and ISO 3166-2 format
+                        circle:
+                          description: Describes a circular area on the map
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            gps:
+                              description: Describes a gps coordinate
+                              type: string
+                              pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                            radius:
+                              description: An object representing a scalar quantity.
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                    - CONSTANT
+                                    - VARIABLE
+                                value:
+                                  type: number
+                                estimated_value:
+                                  type: number
+                                computed_value:
+                                  type: number
+                                range:
+                                  type: object
+                                  additionalProperties: false
+                                  properties:
+                                    min:
+                                      type: number
+                                    max:
+                                      type: number
+                                unit:
+                                  type: string
+                              required:
+                                - value
+                                - unit
+                          required:
+                            - gps
+                            - radius
+                        polygon:
+                          type: string
+                        3dspace:
+                          type: string
+                        time:
+                          description: Describes time in its various forms. It can be a single point in
+                            time; duration; or a structured timetable of
+                            operations
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            label:
+                              type: string
+                            timestamp:
+                              type: string
+                              format: date-time
+                            duration:
+                              description: Describes duration as per ISO8601 format
+                              type: string
+                            range:
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                start:
+                                  type: string
+                                  format: date-time
+                                end:
+                                  type: string
+                                  format: date-time
+                            days:
+                              type: string
+                              description: comma separated values representing days of the week
+                            schedule:
+                              description: Describes a schedule
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                frequency:
+                                  description: Describes duration as per ISO8601 format
+                                  type: string
+                                holidays:
+                                  type: array
+                                  items:
+                                    type: string
+                                    format: date-time
+                                times:
+                                  type: array
+                                  items:
+                                    type: string
+                                    format: date-time
+                    time:
+                      description: Describes time in its various forms. It can be a single point in
+                        time; duration; or a structured timetable of operations
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        label:
+                          type: string
+                        timestamp:
+                          type: string
+                          format: date-time
+                        duration:
+                          description: Describes duration as per ISO8601 format
+                          type: string
+                        range:
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            start:
+                              type: string
+                              format: date-time
+                            end:
+                              type: string
+                              format: date-time
+                        days:
+                          type: string
+                          description: comma separated values representing days of the week
+                        schedule:
+                          description: Describes a schedule
+                          type: object
+                          additionalProperties: false
+                          properties:
+                            frequency:
+                              description: Describes duration as per ISO8601 format
+                              type: string
+                            holidays:
+                              type: array
+                              items:
+                                type: string
+                                format: date-time
+                            times:
+                              type: array
+                              items:
+                                type: string
+                                format: date-time
+                    instructions:
+                      description: Describes the description of a real-world object.
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        name:
+                          type: string
+                        code:
+                          type: string
+                        symbol:
+                          type: string
+                        short_desc:
+                          type: string
+                        long_desc:
+                          type: string
+                        images:
+                          type: array
+                          items:
+                            description: "Image of an object. <br/><br/> A url based image will look like
+                              <br/><br/>```uri:http://path/to/image```
+                              <br/><br/> An image can also be sent as a data
+                              string. For example : <br/><br/>
+                              ```data:js87y34ilhriuho84r3i4```"
+                            type: string
+                        audio:
+                          type: string
+                          format: uri
+                        3d_render:
+                          type: string
+                          format: uri
+                    contact:
+                      type: object
+                      properties:
+                        phone:
+                          type: string
+                        email:
+                          type: string
+                        tags:
+                          description: A simple key-value store which is used to contain extended
+                            metadata. However, grouped tags can be created using
+                            the recommendations provided in
+                            docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                          type: object
+                          additionalProperties:
+                            type: string
+                    person:
+                      description: Describes a person.
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: "Describes the name of a person in format:
+                            ./{given_name}/{honorific_prefix}/{first_name}/{mid\
+                            dle_name}/{last_name}/{honorific_suffix}"
+                        image:
+                          description: "Image of an object. <br/><br/> A url based image will look like
+                            <br/><br/>```uri:http://path/to/image``` <br/><br/>
+                            An image can also be sent as a data string. For
+                            example : <br/><br/>
+                            ```data:js87y34ilhriuho84r3i4```"
+                          type: string
+                        dob:
+                          type: string
+                          format: date
+                        gender:
+                          type: string
+                          description: Gender of something, typically a Person, but possibly also
+                            fictional characters, animals, etc. While Male and
+                            Female may be used, text strings are also acceptable
+                            for people who do not identify as a binary gender
+                        cred:
+                          type: string
+                        tags:
+                          description: A simple key-value store which is used to contain extended
+                            metadata. However, grouped tags can be created using
+                            the recommendations provided in
+                            docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                          type: object
+                          additionalProperties:
+                            type: string
+                    authorization:
+                      description: Describes an authorization mechanism
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        type:
+                          type: string
+                          description: Type of authorization mechanism used
+                        token:
+                          type: string
+                          description: Token used for authorization
+                        valid_from:
+                          type: string
+                          format: date-time
+                          description: Timestamp in RFC3339 format from which token is valid
+                        valid_to:
+                          type: string
+                          format: date-time
+                          description: Timestamp in RFC3339 format until which token is valid
+                        status:
+                          type: string
+                          description: Status of the token
+                rateable:
+                  description: If the entity can be rated or not
+                  type: boolean
+                tags:
+                  description: A simple key-value store which is used to contain extended
+                    metadata. However, grouped tags can be created using the
+                    recommendations provided in
+                    docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                  type: object
+                  additionalProperties:
+                    type: string
+          bpp/payments:
+            type: array
+            items:
+              description: Describes a payment
+              type: object
+              additionalProperties: false
+              properties:
+                uri:
+                  type: string
+                  description: "A payment uri to be called by the BAP. If empty, then the payment
+                    is to be done offline. The details of payment should be
+                    present in the params object. If ```tl_method``` = http/get,
+                    then the payment details will be sent as url params. Two url
+                    param values, ```$transaction_id``` and ```$amount``` are
+                    mandatory. And example url would be :
+                    https://www.example.com/pay?txid=$transaction_id&amount=$am\
+                    ount&vpa=upiid&payee=shopez&billno=1234"
+                  format: uri
+                tl_method:
+                  type: string
+                  enum:
+                    - http/get
+                    - http/post
+                params:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  properties:
+                    transaction_id:
+                      type: string
+                      description: This value will be placed in the the $transaction_id url param in
+                        case of http/get and in the requestBody http/post
+                        requests
+                    transaction_status:
+                      type: string
+                    amount:
+                      description: Describes a decimal value
+                      type: string
+                      pattern: "[+-]?([0-9]*[.])?[0-9]+"
+                    currency:
+                      type: string
+                  required:
+                    - currency
+                type:
+                  type: string
+                  enum:
+                    - ON-ORDER
+                    - PRE-FULFILLMENT
+                    - ON-FULFILLMENT
+                    - POST-FULFILLMENT
+                status:
+                  type: string
+                  enum:
+                    - PAID
+                    - NOT-PAID
+                time:
+                  description: Describes time in its various forms. It can be a single point in
+                    time; duration; or a structured timetable of operations
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    label:
+                      type: string
+                    timestamp:
+                      type: string
+                      format: date-time
+                    duration:
+                      description: Describes duration as per ISO8601 format
+                      type: string
+                    range:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                    days:
+                      type: string
+                      description: comma separated values representing days of the week
+                    schedule:
+                      description: Describes a schedule
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        frequency:
+                          description: Describes duration as per ISO8601 format
+                          type: string
+                        holidays:
+                          type: array
+                          items:
+                            type: string
+                            format: date-time
+                        times:
+                          type: array
+                          items:
+                            type: string
+                            format: date-time
+          bpp/offers:
+            type: array
+            items:
+              description: Describes an offer
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                descriptor:
+                  description: Describes the description of a real-world object.
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    name:
+                      type: string
+                    code:
+                      type: string
+                    symbol:
+                      type: string
+                    short_desc:
+                      type: string
+                    long_desc:
+                      type: string
+                    images:
+                      type: array
+                      items:
+                        description: "Image of an object. <br/><br/> A url based image will look like
+                          <br/><br/>```uri:http://path/to/image``` <br/><br/> An
+                          image can also be sent as a data string. For example :
+                          <br/><br/> ```data:js87y34ilhriuho84r3i4```"
+                        type: string
+                    audio:
+                      type: string
+                      format: uri
+                    3d_render:
+                      type: string
+                      format: uri
+                location_ids:
+                  type: array
+                  items:
+                    type: string
+                category_ids:
+                  type: array
+                  items:
+                    type: string
+                    description: Unique id of the category
+                item_ids:
+                  type: array
+                  items:
+                    description: This is the most unique identifier of a service item. An example of
+                      an Item ID could be the SKU of a product.
+                    type: string
+                time:
+                  description: Describes time in its various forms. It can be a single point in
+                    time; duration; or a structured timetable of operations
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    label:
+                      type: string
+                    timestamp:
+                      type: string
+                      format: date-time
+                    duration:
+                      description: Describes duration as per ISO8601 format
+                      type: string
+                    range:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                    days:
+                      type: string
+                      description: comma separated values representing days of the week
+                    schedule:
+                      description: Describes a schedule
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        frequency:
+                          description: Describes duration as per ISO8601 format
+                          type: string
+                        holidays:
+                          type: array
+                          items:
+                            type: string
+                            format: date-time
+                        times:
+                          type: array
+                          items:
+                            type: string
+                            format: date-time
+          bpp/providers:
+            type: array
+            items:
+              description: Describes a service provider. This can be a restaurant, a hospital,
+                a Store etc
+              type: object
+              additionalProperties: false
+              properties:
+                id:
+                  type: string
+                  description: Id of the provider
+                descriptor:
+                  description: Describes the description of a real-world object.
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    name:
+                      type: string
+                    code:
+                      type: string
+                    symbol:
+                      type: string
+                    short_desc:
+                      type: string
+                    long_desc:
+                      type: string
+                    images:
+                      type: array
+                      items:
+                        description: "Image of an object. <br/><br/> A url based image will look like
+                          <br/><br/>```uri:http://path/to/image``` <br/><br/> An
+                          image can also be sent as a data string. For example :
+                          <br/><br/> ```data:js87y34ilhriuho84r3i4```"
+                        type: string
+                    audio:
+                      type: string
+                      format: uri
+                    3d_render:
+                      type: string
+                      format: uri
+                category_id:
+                  type: string
+                  description: Category Id of the provider
+                rating:
+                  description: Rating value given to the object
+                  type: number
+                  minimum: 0
+                time:
+                  description: Describes time in its various forms. It can be a single point in
+                    time; duration; or a structured timetable of operations
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    label:
+                      type: string
+                    timestamp:
+                      type: string
+                      format: date-time
+                    duration:
+                      description: Describes duration as per ISO8601 format
+                      type: string
+                    range:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                    days:
+                      type: string
+                      description: comma separated values representing days of the week
+                    schedule:
+                      description: Describes a schedule
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        frequency:
+                          description: Describes duration as per ISO8601 format
+                          type: string
+                        holidays:
+                          type: array
+                          items:
+                            type: string
+                            format: date-time
+                        times:
+                          type: array
+                          items:
+                            type: string
+                            format: date-time
+                categories:
+                  type: array
+                  items:
+                    description: Describes a category
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      id:
+                        type: string
+                        description: Unique id of the category
+                      parent_category_id:
+                        type: string
+                        description: Unique id of the category
+                      descriptor:
+                        description: Describes the description of a real-world object.
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          name:
+                            type: string
+                          code:
+                            type: string
+                          symbol:
+                            type: string
+                          short_desc:
+                            type: string
+                          long_desc:
+                            type: string
+                          images:
+                            type: array
+                            items:
+                              description: "Image of an object. <br/><br/> A url based image will look like
+                                <br/><br/>```uri:http://path/to/image```
+                                <br/><br/> An image can also be sent as a data
+                                string. For example : <br/><br/>
+                                ```data:js87y34ilhriuho84r3i4```"
+                              type: string
+                          audio:
+                            type: string
+                            format: uri
+                          3d_render:
+                            type: string
+                            format: uri
+                      time:
+                        description: Describes time in its various forms. It can be a single point in
+                          time; duration; or a structured timetable of
+                          operations
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          label:
+                            type: string
+                          timestamp:
+                            type: string
+                            format: date-time
+                          duration:
+                            description: Describes duration as per ISO8601 format
+                            type: string
+                          range:
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              start:
+                                type: string
+                                format: date-time
+                              end:
+                                type: string
+                                format: date-time
+                          days:
+                            type: string
+                            description: comma separated values representing days of the week
+                          schedule:
+                            description: Describes a schedule
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              frequency:
+                                description: Describes duration as per ISO8601 format
+                                type: string
+                              holidays:
+                                type: array
+                                items:
+                                  type: string
+                                  format: date-time
+                              times:
+                                type: array
+                                items:
+                                  type: string
+                                  format: date-time
+                      tags:
+                        description: A simple key-value store which is used to contain extended
+                          metadata. However, grouped tags can be created using
+                          the recommendations provided in
+                          docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                        type: object
+                        additionalProperties:
+                          type: string
+                fulfillments:
+                  type: array
+                  items:
+                    description: Describes how a single product/service will be rendered/fulfilled
+                      to the end customer
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      id:
+                        type: string
+                        description: Unique reference ID to the fulfillment of an order
+                      type:
+                        type: string
+                        description: This describes the type of fulfillment
+                      provider_id:
+                        type: string
+                        description: Id of the provider
+                      rating:
+                        description: Rating value given to the object
+                        type: number
+                        minimum: 0
+                      state:
+                        description: Describes a state
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          descriptor:
+                            description: Describes the description of a real-world object.
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              name:
+                                type: string
+                              code:
+                                type: string
+                              symbol:
+                                type: string
+                              short_desc:
+                                type: string
+                              long_desc:
+                                type: string
+                              images:
+                                type: array
+                                items:
+                                  description: "Image of an object. <br/><br/> A url based image will look like
+                                    <br/><br/>```uri:http://path/to/image```
+                                    <br/><br/> An image can also be sent as a
+                                    data string. For example : <br/><br/>
+                                    ```data:js87y34ilhriuho84r3i4```"
+                                  type: string
+                              audio:
+                                type: string
+                                format: uri
+                              3d_render:
+                                type: string
+                                format: uri
+                          updated_at:
+                            type: string
+                            format: date-time
+                          updated_by:
+                            type: string
+                            description: ID of entity which changed the state
+                      tracking:
+                        type: boolean
+                        description: Indicates whether the fulfillment allows tracking
+                        default: false
+                      customer:
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          person:
+                            description: Describes a person.
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                description: "Describes the name of a person in format:
+                                  ./{given_name}/{honorific_prefix}/{first_name\
+                                  }/{middle_name}/{last_name}/{honorific_suffix\
+                                  }"
+                              image:
+                                description: "Image of an object. <br/><br/> A url based image will look like
+                                  <br/><br/>```uri:http://path/to/image```
+                                  <br/><br/> An image can also be sent as a data
+                                  string. For example : <br/><br/>
+                                  ```data:js87y34ilhriuho84r3i4```"
+                                type: string
+                              dob:
+                                type: string
+                                format: date
+                              gender:
+                                type: string
+                                description: Gender of something, typically a Person, but possibly also
+                                  fictional characters, animals, etc. While Male
+                                  and Female may be used, text strings are also
+                                  acceptable for people who do not identify as a
+                                  binary gender
+                              cred:
+                                type: string
+                              tags:
+                                description: A simple key-value store which is used to contain extended
+                                  metadata. However, grouped tags can be created
+                                  using the recommendations provided in
+                                  docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                                type: object
+                                additionalProperties:
+                                  type: string
+                          contact:
+                            type: object
+                            properties:
+                              phone:
+                                type: string
+                              email:
+                                type: string
+                              tags:
+                                description: A simple key-value store which is used to contain extended
+                                  metadata. However, grouped tags can be created
+                                  using the recommendations provided in
+                                  docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                                type: object
+                                additionalProperties:
+                                  type: string
+                      agent:
+                        description: Describes an order executor
+                        allOf:
+                          - description: Describes a person.
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                description: "Describes the name of a person in format:
+                                  ./{given_name}/{honorific_prefix}/{first_name\
+                                  }/{middle_name}/{last_name}/{honorific_suffix\
+                                  }"
+                              image:
+                                description: "Image of an object. <br/><br/> A url based image will look like
+                                  <br/><br/>```uri:http://path/to/image```
+                                  <br/><br/> An image can also be sent as a data
+                                  string. For example : <br/><br/>
+                                  ```data:js87y34ilhriuho84r3i4```"
+                                type: string
+                              dob:
+                                type: string
+                                format: date
+                              gender:
+                                type: string
+                                description: Gender of something, typically a Person, but possibly also
+                                  fictional characters, animals, etc. While Male
+                                  and Female may be used, text strings are also
+                                  acceptable for people who do not identify as a
+                                  binary gender
+                              cred:
+                                type: string
+                              tags:
+                                description: A simple key-value store which is used to contain extended
+                                  metadata. However, grouped tags can be created
+                                  using the recommendations provided in
+                                  docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                                type: object
+                                additionalProperties:
+                                  type: string
+                          - type: object
+                            properties:
+                              phone:
+                                type: string
+                              email:
+                                type: string
+                              tags:
+                                description: A simple key-value store which is used to contain extended
+                                  metadata. However, grouped tags can be created
+                                  using the recommendations provided in
+                                  docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                                type: object
+                                additionalProperties:
+                                  type: string
+                          - type: object
+                            properties:
+                              rateable:
+                                description: If the entity can be rated or not
+                                type: boolean
+                      person:
+                        description: Describes a person.
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: "Describes the name of a person in format:
+                              ./{given_name}/{honorific_prefix}/{first_name}/{m\
+                              iddle_name}/{last_name}/{honorific_suffix}"
+                          image:
+                            description: "Image of an object. <br/><br/> A url based image will look like
+                              <br/><br/>```uri:http://path/to/image```
+                              <br/><br/> An image can also be sent as a data
+                              string. For example : <br/><br/>
+                              ```data:js87y34ilhriuho84r3i4```"
+                            type: string
+                          dob:
+                            type: string
+                            format: date
+                          gender:
+                            type: string
+                            description: Gender of something, typically a Person, but possibly also
+                              fictional characters, animals, etc. While Male and
+                              Female may be used, text strings are also
+                              acceptable for people who do not identify as a
+                              binary gender
+                          cred:
+                            type: string
+                          tags:
+                            description: A simple key-value store which is used to contain extended
+                              metadata. However, grouped tags can be created
+                              using the recommendations provided in
+                              docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                            type: object
+                            additionalProperties:
+                              type: string
+                      contact:
+                        type: object
+                        properties:
+                          phone:
+                            type: string
+                          email:
+                            type: string
+                          tags:
+                            description: A simple key-value store which is used to contain extended
+                              metadata. However, grouped tags can be created
+                              using the recommendations provided in
+                              docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                            type: object
+                            additionalProperties:
+                              type: string
+                      vehicle:
+                        description: Describes the properties of a vehicle used in a mobility service
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          category:
+                            type: string
+                          capacity:
+                            type: integer
+                          make:
+                            type: string
+                          model:
+                            type: string
+                          size:
+                            type: string
+                          variant:
+                            type: string
+                          color:
+                            type: string
+                          energy_type:
+                            type: string
+                          registration:
+                            type: string
+                      start:
+                        description: Details on the start of fulfillment
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          location:
+                            description: Describes the location of a runtime object.
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              descriptor:
+                                description: Describes the description of a real-world object.
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  name:
+                                    type: string
+                                  code:
+                                    type: string
+                                  symbol:
+                                    type: string
+                                  short_desc:
+                                    type: string
+                                  long_desc:
+                                    type: string
+                                  images:
+                                    type: array
+                                    items:
+                                      description: "Image of an object. <br/><br/> A url based image will look like
+                                        <br/><br/>```uri:http://path/to/image```
+                                        <br/><br/> An image can also be sent as
+                                        a data string. For example : <br/><br/>
+                                        ```data:js87y34ilhriuho84r3i4```"
+                                      type: string
+                                  audio:
+                                    type: string
+                                    format: uri
+                                  3d_render:
+                                    type: string
+                                    format: uri
+                              gps:
+                                description: Describes a gps coordinate
+                                type: string
+                                pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                              address:
+                                description: Describes an address
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  door:
+                                    type: string
+                                    description: Door / Shop number of the address
+                                  name:
+                                    type: string
+                                    description: Name of address if applicable. Example, shop name
+                                  building:
+                                    type: string
+                                    description: Name of the building or block
+                                  street:
+                                    type: string
+                                    description: Street name or number
+                                  locality:
+                                    type: string
+                                    description: Name of the locality, apartments
+                                  ward:
+                                    type: string
+                                    description: Name or number of the ward if applicable
+                                  city:
+                                    type: string
+                                    description: City name
+                                  state:
+                                    type: string
+                                    description: State name
+                                  country:
+                                    type: string
+                                    description: Country name
+                                  area_code:
+                                    type: string
+                                    description: Area code. This can be Pincode, ZIP code or any equivalent
+                              station_code:
+                                type: string
+                              city:
+                                description: Describes a city
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  name:
+                                    type: string
+                                    description: Name of the city
+                                  code:
+                                    type: string
+                                    description: City code
+                              country:
+                                description: Describes a country.
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  name:
+                                    type: string
+                                    description: Name of the country
+                                  code:
+                                    type: string
+                                    description: Country code as per ISO 3166-1 and ISO 3166-2 format
+                              circle:
+                                description: Describes a circular area on the map
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  gps:
+                                    description: Describes a gps coordinate
+                                    type: string
+                                    pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                                  radius:
+                                    description: An object representing a scalar quantity.
+                                    type: object
+                                    additionalProperties: false
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                          - CONSTANT
+                                          - VARIABLE
+                                      value:
+                                        type: number
+                                      estimated_value:
+                                        type: number
+                                      computed_value:
+                                        type: number
+                                      range:
+                                        type: object
+                                        additionalProperties: false
+                                        properties:
+                                          min:
+                                            type: number
+                                          max:
+                                            type: number
+                                      unit:
+                                        type: string
+                                    required:
+                                      - value
+                                      - unit
+                                required:
+                                  - gps
+                                  - radius
+                              polygon:
+                                type: string
+                              3dspace:
+                                type: string
+                              time:
+                                description: Describes time in its various forms. It can be a single point in
+                                  time; duration; or a structured timetable of
+                                  operations
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  label:
+                                    type: string
+                                  timestamp:
+                                    type: string
+                                    format: date-time
+                                  duration:
+                                    description: Describes duration as per ISO8601 format
+                                    type: string
+                                  range:
+                                    type: object
+                                    additionalProperties: false
+                                    properties:
+                                      start:
+                                        type: string
+                                        format: date-time
+                                      end:
+                                        type: string
+                                        format: date-time
+                                  days:
+                                    type: string
+                                    description: comma separated values representing days of the week
+                                  schedule:
+                                    description: Describes a schedule
+                                    type: object
+                                    additionalProperties: false
+                                    properties:
+                                      frequency:
+                                        description: Describes duration as per ISO8601 format
+                                        type: string
+                                      holidays:
+                                        type: array
+                                        items:
+                                          type: string
+                                          format: date-time
+                                      times:
+                                        type: array
+                                        items:
+                                          type: string
+                                          format: date-time
+                          time:
+                            description: Describes time in its various forms. It can be a single point in
+                              time; duration; or a structured timetable of
+                              operations
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              label:
+                                type: string
+                              timestamp:
+                                type: string
+                                format: date-time
+                              duration:
+                                description: Describes duration as per ISO8601 format
+                                type: string
+                              range:
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  start:
+                                    type: string
+                                    format: date-time
+                                  end:
+                                    type: string
+                                    format: date-time
+                              days:
+                                type: string
+                                description: comma separated values representing days of the week
+                              schedule:
+                                description: Describes a schedule
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  frequency:
+                                    description: Describes duration as per ISO8601 format
+                                    type: string
+                                  holidays:
+                                    type: array
+                                    items:
+                                      type: string
+                                      format: date-time
+                                  times:
+                                    type: array
+                                    items:
+                                      type: string
+                                      format: date-time
+                          instructions:
+                            description: Describes the description of a real-world object.
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              name:
+                                type: string
+                              code:
+                                type: string
+                              symbol:
+                                type: string
+                              short_desc:
+                                type: string
+                              long_desc:
+                                type: string
+                              images:
+                                type: array
+                                items:
+                                  description: "Image of an object. <br/><br/> A url based image will look like
+                                    <br/><br/>```uri:http://path/to/image```
+                                    <br/><br/> An image can also be sent as a
+                                    data string. For example : <br/><br/>
+                                    ```data:js87y34ilhriuho84r3i4```"
+                                  type: string
+                              audio:
+                                type: string
+                                format: uri
+                              3d_render:
+                                type: string
+                                format: uri
+                          contact:
+                            type: object
+                            properties:
+                              phone:
+                                type: string
+                              email:
+                                type: string
+                              tags:
+                                description: A simple key-value store which is used to contain extended
+                                  metadata. However, grouped tags can be created
+                                  using the recommendations provided in
+                                  docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                                type: object
+                                additionalProperties:
+                                  type: string
+                          person:
+                            description: Describes a person.
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                description: "Describes the name of a person in format:
+                                  ./{given_name}/{honorific_prefix}/{first_name\
+                                  }/{middle_name}/{last_name}/{honorific_suffix\
+                                  }"
+                              image:
+                                description: "Image of an object. <br/><br/> A url based image will look like
+                                  <br/><br/>```uri:http://path/to/image```
+                                  <br/><br/> An image can also be sent as a data
+                                  string. For example : <br/><br/>
+                                  ```data:js87y34ilhriuho84r3i4```"
+                                type: string
+                              dob:
+                                type: string
+                                format: date
+                              gender:
+                                type: string
+                                description: Gender of something, typically a Person, but possibly also
+                                  fictional characters, animals, etc. While Male
+                                  and Female may be used, text strings are also
+                                  acceptable for people who do not identify as a
+                                  binary gender
+                              cred:
+                                type: string
+                              tags:
+                                description: A simple key-value store which is used to contain extended
+                                  metadata. However, grouped tags can be created
+                                  using the recommendations provided in
+                                  docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                                type: object
+                                additionalProperties:
+                                  type: string
+                          authorization:
+                            description: Describes an authorization mechanism
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              type:
+                                type: string
+                                description: Type of authorization mechanism used
+                              token:
+                                type: string
+                                description: Token used for authorization
+                              valid_from:
+                                type: string
+                                format: date-time
+                                description: Timestamp in RFC3339 format from which token is valid
+                              valid_to:
+                                type: string
+                                format: date-time
+                                description: Timestamp in RFC3339 format until which token is valid
+                              status:
+                                type: string
+                                description: Status of the token
+                      end:
+                        description: Details on the end of fulfillment
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          location:
+                            description: Describes the location of a runtime object.
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              descriptor:
+                                description: Describes the description of a real-world object.
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  name:
+                                    type: string
+                                  code:
+                                    type: string
+                                  symbol:
+                                    type: string
+                                  short_desc:
+                                    type: string
+                                  long_desc:
+                                    type: string
+                                  images:
+                                    type: array
+                                    items:
+                                      description: "Image of an object. <br/><br/> A url based image will look like
+                                        <br/><br/>```uri:http://path/to/image```
+                                        <br/><br/> An image can also be sent as
+                                        a data string. For example : <br/><br/>
+                                        ```data:js87y34ilhriuho84r3i4```"
+                                      type: string
+                                  audio:
+                                    type: string
+                                    format: uri
+                                  3d_render:
+                                    type: string
+                                    format: uri
+                              gps:
+                                description: Describes a gps coordinate
+                                type: string
+                                pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                              address:
+                                description: Describes an address
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  door:
+                                    type: string
+                                    description: Door / Shop number of the address
+                                  name:
+                                    type: string
+                                    description: Name of address if applicable. Example, shop name
+                                  building:
+                                    type: string
+                                    description: Name of the building or block
+                                  street:
+                                    type: string
+                                    description: Street name or number
+                                  locality:
+                                    type: string
+                                    description: Name of the locality, apartments
+                                  ward:
+                                    type: string
+                                    description: Name or number of the ward if applicable
+                                  city:
+                                    type: string
+                                    description: City name
+                                  state:
+                                    type: string
+                                    description: State name
+                                  country:
+                                    type: string
+                                    description: Country name
+                                  area_code:
+                                    type: string
+                                    description: Area code. This can be Pincode, ZIP code or any equivalent
+                              station_code:
+                                type: string
+                              city:
+                                description: Describes a city
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  name:
+                                    type: string
+                                    description: Name of the city
+                                  code:
+                                    type: string
+                                    description: City code
+                              country:
+                                description: Describes a country.
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  name:
+                                    type: string
+                                    description: Name of the country
+                                  code:
+                                    type: string
+                                    description: Country code as per ISO 3166-1 and ISO 3166-2 format
+                              circle:
+                                description: Describes a circular area on the map
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  gps:
+                                    description: Describes a gps coordinate
+                                    type: string
+                                    pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                                  radius:
+                                    description: An object representing a scalar quantity.
+                                    type: object
+                                    additionalProperties: false
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                          - CONSTANT
+                                          - VARIABLE
+                                      value:
+                                        type: number
+                                      estimated_value:
+                                        type: number
+                                      computed_value:
+                                        type: number
+                                      range:
+                                        type: object
+                                        additionalProperties: false
+                                        properties:
+                                          min:
+                                            type: number
+                                          max:
+                                            type: number
+                                      unit:
+                                        type: string
+                                    required:
+                                      - value
+                                      - unit
+                                required:
+                                  - gps
+                                  - radius
+                              polygon:
+                                type: string
+                              3dspace:
+                                type: string
+                              time:
+                                description: Describes time in its various forms. It can be a single point in
+                                  time; duration; or a structured timetable of
+                                  operations
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  label:
+                                    type: string
+                                  timestamp:
+                                    type: string
+                                    format: date-time
+                                  duration:
+                                    description: Describes duration as per ISO8601 format
+                                    type: string
+                                  range:
+                                    type: object
+                                    additionalProperties: false
+                                    properties:
+                                      start:
+                                        type: string
+                                        format: date-time
+                                      end:
+                                        type: string
+                                        format: date-time
+                                  days:
+                                    type: string
+                                    description: comma separated values representing days of the week
+                                  schedule:
+                                    description: Describes a schedule
+                                    type: object
+                                    additionalProperties: false
+                                    properties:
+                                      frequency:
+                                        description: Describes duration as per ISO8601 format
+                                        type: string
+                                      holidays:
+                                        type: array
+                                        items:
+                                          type: string
+                                          format: date-time
+                                      times:
+                                        type: array
+                                        items:
+                                          type: string
+                                          format: date-time
+                          time:
+                            description: Describes time in its various forms. It can be a single point in
+                              time; duration; or a structured timetable of
+                              operations
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              label:
+                                type: string
+                              timestamp:
+                                type: string
+                                format: date-time
+                              duration:
+                                description: Describes duration as per ISO8601 format
+                                type: string
+                              range:
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  start:
+                                    type: string
+                                    format: date-time
+                                  end:
+                                    type: string
+                                    format: date-time
+                              days:
+                                type: string
+                                description: comma separated values representing days of the week
+                              schedule:
+                                description: Describes a schedule
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  frequency:
+                                    description: Describes duration as per ISO8601 format
+                                    type: string
+                                  holidays:
+                                    type: array
+                                    items:
+                                      type: string
+                                      format: date-time
+                                  times:
+                                    type: array
+                                    items:
+                                      type: string
+                                      format: date-time
+                          instructions:
+                            description: Describes the description of a real-world object.
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              name:
+                                type: string
+                              code:
+                                type: string
+                              symbol:
+                                type: string
+                              short_desc:
+                                type: string
+                              long_desc:
+                                type: string
+                              images:
+                                type: array
+                                items:
+                                  description: "Image of an object. <br/><br/> A url based image will look like
+                                    <br/><br/>```uri:http://path/to/image```
+                                    <br/><br/> An image can also be sent as a
+                                    data string. For example : <br/><br/>
+                                    ```data:js87y34ilhriuho84r3i4```"
+                                  type: string
+                              audio:
+                                type: string
+                                format: uri
+                              3d_render:
+                                type: string
+                                format: uri
+                          contact:
+                            type: object
+                            properties:
+                              phone:
+                                type: string
+                              email:
+                                type: string
+                              tags:
+                                description: A simple key-value store which is used to contain extended
+                                  metadata. However, grouped tags can be created
+                                  using the recommendations provided in
+                                  docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                                type: object
+                                additionalProperties:
+                                  type: string
+                          person:
+                            description: Describes a person.
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                description: "Describes the name of a person in format:
+                                  ./{given_name}/{honorific_prefix}/{first_name\
+                                  }/{middle_name}/{last_name}/{honorific_suffix\
+                                  }"
+                              image:
+                                description: "Image of an object. <br/><br/> A url based image will look like
+                                  <br/><br/>```uri:http://path/to/image```
+                                  <br/><br/> An image can also be sent as a data
+                                  string. For example : <br/><br/>
+                                  ```data:js87y34ilhriuho84r3i4```"
+                                type: string
+                              dob:
+                                type: string
+                                format: date
+                              gender:
+                                type: string
+                                description: Gender of something, typically a Person, but possibly also
+                                  fictional characters, animals, etc. While Male
+                                  and Female may be used, text strings are also
+                                  acceptable for people who do not identify as a
+                                  binary gender
+                              cred:
+                                type: string
+                              tags:
+                                description: A simple key-value store which is used to contain extended
+                                  metadata. However, grouped tags can be created
+                                  using the recommendations provided in
+                                  docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                                type: object
+                                additionalProperties:
+                                  type: string
+                          authorization:
+                            description: Describes an authorization mechanism
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              type:
+                                type: string
+                                description: Type of authorization mechanism used
+                              token:
+                                type: string
+                                description: Token used for authorization
+                              valid_from:
+                                type: string
+                                format: date-time
+                                description: Timestamp in RFC3339 format from which token is valid
+                              valid_to:
+                                type: string
+                                format: date-time
+                                description: Timestamp in RFC3339 format until which token is valid
+                              status:
+                                type: string
+                                description: Status of the token
+                      rateable:
+                        description: If the entity can be rated or not
+                        type: boolean
+                      tags:
+                        description: A simple key-value store which is used to contain extended
+                          metadata. However, grouped tags can be created using
+                          the recommendations provided in
+                          docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                        type: object
+                        additionalProperties:
+                          type: string
+                payments:
+                  type: array
+                  items:
+                    description: Describes a payment
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      uri:
+                        type: string
+                        description: "A payment uri to be called by the BAP. If empty, then the payment
+                          is to be done offline. The details of payment should
+                          be present in the params object. If ```tl_method``` =
+                          http/get, then the payment details will be sent as url
+                          params. Two url param values, ```$transaction_id```
+                          and ```$amount``` are mandatory. And example url would
+                          be :
+                          https://www.example.com/pay?txid=$transaction_id&amou\
+                          nt=$amount&vpa=upiid&payee=shopez&billno=1234"
+                        format: uri
+                      tl_method:
+                        type: string
+                        enum:
+                          - http/get
+                          - http/post
+                      params:
+                        type: object
+                        additionalProperties:
+                          type: string
+                        properties:
+                          transaction_id:
+                            type: string
+                            description: This value will be placed in the the $transaction_id url param in
+                              case of http/get and in the requestBody http/post
+                              requests
+                          transaction_status:
+                            type: string
+                          amount:
+                            description: Describes a decimal value
+                            type: string
+                            pattern: "[+-]?([0-9]*[.])?[0-9]+"
+                          currency:
+                            type: string
+                        required:
+                          - currency
+                      type:
+                        type: string
+                        enum:
+                          - ON-ORDER
+                          - PRE-FULFILLMENT
+                          - ON-FULFILLMENT
+                          - POST-FULFILLMENT
+                      status:
+                        type: string
+                        enum:
+                          - PAID
+                          - NOT-PAID
+                      time:
+                        description: Describes time in its various forms. It can be a single point in
+                          time; duration; or a structured timetable of
+                          operations
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          label:
+                            type: string
+                          timestamp:
+                            type: string
+                            format: date-time
+                          duration:
+                            description: Describes duration as per ISO8601 format
+                            type: string
+                          range:
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              start:
+                                type: string
+                                format: date-time
+                              end:
+                                type: string
+                                format: date-time
+                          days:
+                            type: string
+                            description: comma separated values representing days of the week
+                          schedule:
+                            description: Describes a schedule
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              frequency:
+                                description: Describes duration as per ISO8601 format
+                                type: string
+                              holidays:
+                                type: array
+                                items:
+                                  type: string
+                                  format: date-time
+                              times:
+                                type: array
+                                items:
+                                  type: string
+                                  format: date-time
+                locations:
+                  type: array
+                  items:
+                    allOf:
+                      - description: Describes the location of a runtime object.
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          descriptor:
+                            description: Describes the description of a real-world object.
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              name:
+                                type: string
+                              code:
+                                type: string
+                              symbol:
+                                type: string
+                              short_desc:
+                                type: string
+                              long_desc:
+                                type: string
+                              images:
+                                type: array
+                                items:
+                                  description: "Image of an object. <br/><br/> A url based image will look like
+                                    <br/><br/>```uri:http://path/to/image```
+                                    <br/><br/> An image can also be sent as a
+                                    data string. For example : <br/><br/>
+                                    ```data:js87y34ilhriuho84r3i4```"
+                                  type: string
+                              audio:
+                                type: string
+                                format: uri
+                              3d_render:
+                                type: string
+                                format: uri
+                          gps:
+                            description: Describes a gps coordinate
+                            type: string
+                            pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                          address:
+                            description: Describes an address
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              door:
+                                type: string
+                                description: Door / Shop number of the address
+                              name:
+                                type: string
+                                description: Name of address if applicable. Example, shop name
+                              building:
+                                type: string
+                                description: Name of the building or block
+                              street:
+                                type: string
+                                description: Street name or number
+                              locality:
+                                type: string
+                                description: Name of the locality, apartments
+                              ward:
+                                type: string
+                                description: Name or number of the ward if applicable
+                              city:
+                                type: string
+                                description: City name
+                              state:
+                                type: string
+                                description: State name
+                              country:
+                                type: string
+                                description: Country name
+                              area_code:
+                                type: string
+                                description: Area code. This can be Pincode, ZIP code or any equivalent
+                          station_code:
+                            type: string
+                          city:
+                            description: Describes a city
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              name:
+                                type: string
+                                description: Name of the city
+                              code:
+                                type: string
+                                description: City code
+                          country:
+                            description: Describes a country.
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              name:
+                                type: string
+                                description: Name of the country
+                              code:
+                                type: string
+                                description: Country code as per ISO 3166-1 and ISO 3166-2 format
+                          circle:
+                            description: Describes a circular area on the map
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              gps:
+                                description: Describes a gps coordinate
+                                type: string
+                                pattern: ^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$
+                              radius:
+                                description: An object representing a scalar quantity.
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  type:
+                                    type: string
+                                    enum:
+                                      - CONSTANT
+                                      - VARIABLE
+                                  value:
+                                    type: number
+                                  estimated_value:
+                                    type: number
+                                  computed_value:
+                                    type: number
+                                  range:
+                                    type: object
+                                    additionalProperties: false
+                                    properties:
+                                      min:
+                                        type: number
+                                      max:
+                                        type: number
+                                  unit:
+                                    type: string
+                                required:
+                                  - value
+                                  - unit
+                            required:
+                              - gps
+                              - radius
+                          polygon:
+                            type: string
+                          3dspace:
+                            type: string
+                          time:
+                            description: Describes time in its various forms. It can be a single point in
+                              time; duration; or a structured timetable of
+                              operations
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              label:
+                                type: string
+                              timestamp:
+                                type: string
+                                format: date-time
+                              duration:
+                                description: Describes duration as per ISO8601 format
+                                type: string
+                              range:
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  start:
+                                    type: string
+                                    format: date-time
+                                  end:
+                                    type: string
+                                    format: date-time
+                              days:
+                                type: string
+                                description: comma separated values representing days of the week
+                              schedule:
+                                description: Describes a schedule
+                                type: object
+                                additionalProperties: false
+                                properties:
+                                  frequency:
+                                    description: Describes duration as per ISO8601 format
+                                    type: string
+                                  holidays:
+                                    type: array
+                                    items:
+                                      type: string
+                                      format: date-time
+                                  times:
+                                    type: array
+                                    items:
+                                      type: string
+                                      format: date-time
+                      - type: object
+                        properties:
+                          rateable:
+                            description: If the entity can be rated or not
+                            type: boolean
+                offers:
+                  type: array
+                  items:
+                    description: Describes an offer
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      id:
+                        type: string
+                      descriptor:
+                        description: Describes the description of a real-world object.
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          name:
+                            type: string
+                          code:
+                            type: string
+                          symbol:
+                            type: string
+                          short_desc:
+                            type: string
+                          long_desc:
+                            type: string
+                          images:
+                            type: array
+                            items:
+                              description: "Image of an object. <br/><br/> A url based image will look like
+                                <br/><br/>```uri:http://path/to/image```
+                                <br/><br/> An image can also be sent as a data
+                                string. For example : <br/><br/>
+                                ```data:js87y34ilhriuho84r3i4```"
+                              type: string
+                          audio:
+                            type: string
+                            format: uri
+                          3d_render:
+                            type: string
+                            format: uri
+                      location_ids:
+                        type: array
+                        items:
+                          type: string
+                      category_ids:
+                        type: array
+                        items:
+                          type: string
+                          description: Unique id of the category
+                      item_ids:
+                        type: array
+                        items:
+                          description: This is the most unique identifier of a service item. An example of
+                            an Item ID could be the SKU of a product.
+                          type: string
+                      time:
+                        description: Describes time in its various forms. It can be a single point in
+                          time; duration; or a structured timetable of
+                          operations
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          label:
+                            type: string
+                          timestamp:
+                            type: string
+                            format: date-time
+                          duration:
+                            description: Describes duration as per ISO8601 format
+                            type: string
+                          range:
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              start:
+                                type: string
+                                format: date-time
+                              end:
+                                type: string
+                                format: date-time
+                          days:
+                            type: string
+                            description: comma separated values representing days of the week
+                          schedule:
+                            description: Describes a schedule
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              frequency:
+                                description: Describes duration as per ISO8601 format
+                                type: string
+                              holidays:
+                                type: array
+                                items:
+                                  type: string
+                                  format: date-time
+                              times:
+                                type: array
+                                items:
+                                  type: string
+                                  format: date-time
+                items:
+                  type: array
+                  items:
+                    description: Describes an item. Allows for domain extension.
+                    type: object
+                    properties:
+                      id:
+                        description: This is the most unique identifier of a service item. An example of
+                          an Item ID could be the SKU of a product.
+                        type: string
+                      parent_item_id:
+                        description: This is the most unique identifier of a service item. An example of
+                          an Item ID could be the SKU of a product.
+                        type: string
+                      descriptor:
+                        description: Describes the description of a real-world object.
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          name:
+                            type: string
+                          code:
+                            type: string
+                          symbol:
+                            type: string
+                          short_desc:
+                            type: string
+                          long_desc:
+                            type: string
+                          images:
+                            type: array
+                            items:
+                              description: "Image of an object. <br/><br/> A url based image will look like
+                                <br/><br/>```uri:http://path/to/image```
+                                <br/><br/> An image can also be sent as a data
+                                string. For example : <br/><br/>
+                                ```data:js87y34ilhriuho84r3i4```"
+                              type: string
+                          audio:
+                            type: string
+                            format: uri
+                          3d_render:
+                            type: string
+                            format: uri
+                      price:
+                        description: Describes the price of an item. Allows for domain extension.
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          currency:
+                            type: string
+                          value:
+                            description: Describes a decimal value
+                            type: string
+                            pattern: "[+-]?([0-9]*[.])?[0-9]+"
+                          estimated_value:
+                            description: Describes a decimal value
+                            type: string
+                            pattern: "[+-]?([0-9]*[.])?[0-9]+"
+                          computed_value:
+                            description: Describes a decimal value
+                            type: string
+                            pattern: "[+-]?([0-9]*[.])?[0-9]+"
+                          listed_value:
+                            description: Describes a decimal value
+                            type: string
+                            pattern: "[+-]?([0-9]*[.])?[0-9]+"
+                          offered_value:
+                            description: Describes a decimal value
+                            type: string
+                            pattern: "[+-]?([0-9]*[.])?[0-9]+"
+                          minimum_value:
+                            description: Describes a decimal value
+                            type: string
+                            pattern: "[+-]?([0-9]*[.])?[0-9]+"
+                          maximum_value:
+                            description: Describes a decimal value
+                            type: string
+                            pattern: "[+-]?([0-9]*[.])?[0-9]+"
+                      category_id:
+                        type: string
+                        description: Unique id of the category
+                      fulfillment_id:
+                        type: string
+                        description: Unique reference ID to the fulfillment of an order
+                      rating:
+                        description: Rating value given to the object
+                        type: number
+                        minimum: 0
+                      location_id:
+                        type: string
+                      time:
+                        description: Describes time in its various forms. It can be a single point in
+                          time; duration; or a structured timetable of
+                          operations
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          label:
+                            type: string
+                          timestamp:
+                            type: string
+                            format: date-time
+                          duration:
+                            description: Describes duration as per ISO8601 format
+                            type: string
+                          range:
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              start:
+                                type: string
+                                format: date-time
+                              end:
+                                type: string
+                                format: date-time
+                          days:
+                            type: string
+                            description: comma separated values representing days of the week
+                          schedule:
+                            description: Describes a schedule
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              frequency:
+                                description: Describes duration as per ISO8601 format
+                                type: string
+                              holidays:
+                                type: array
+                                items:
+                                  type: string
+                                  format: date-time
+                              times:
+                                type: array
+                                items:
+                                  type: string
+                                  format: date-time
+                      rateable:
+                        description: If the entity can be rated or not
+                        type: boolean
+                      matched:
+                        type: boolean
+                      related:
+                        type: boolean
+                      recommended:
+                        type: boolean
+                      tags:
+                        description: A simple key-value store which is used to contain extended
+                          metadata. However, grouped tags can be created using
+                          the recommendations provided in
+                          docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                        type: object
+                        additionalProperties:
+                          type: string
+                exp:
+                  type: string
+                  description: Time after which catalog has to be refreshed
+                  format: date-time
+                rateable:
+                  description: If the entity can be rated or not
+                  type: boolean
+                tags:
+                  description: A simple key-value store which is used to contain extended
+                    metadata. However, grouped tags can be created using the
+                    recommendations provided in
+                    docs/protocol-drafts/BECKN-The-Tags-Schema-Draft-01.md
+                  type: object
+                  additionalProperties:
+                    type: string
+          exp:
+            type: string
+            description: Time after which catalog has to be refreshed
+            format: date-time
+    required:
+      - catalog
+  error:
+    description: Describes an error object
+    type: object
+    additionalProperties: false
+    properties:
+      type:
+        type: string
+        enum:
+          - CONTEXT-ERROR
+          - CORE-ERROR
+          - DOMAIN-ERROR
+          - POLICY-ERROR
+          - JSON-SCHEMA-ERROR
+      code:
+        type: string
+        description: Beckn specific error code. For full list of error codes, refer to
+          error_codes.md in the root folder of this repo
+      path:
+        type: string
+        description: Path to json schema generating the error. Used only during json
+          schema validation errors
+      message:
+        type: string
+        description: Human readable message describing the error
+    required:
+      - type
+      - code
+required:
+  - context
