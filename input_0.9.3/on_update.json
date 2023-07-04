@@ -1,0 +1,51 @@
+{
+  "message": {
+    "order": {
+      "fulfillment": {
+        "start": {
+          "authorization": {
+            "type": "OTP",
+            "token": "6440"
+          }
+        },
+        "state": {
+          "descriptor":{
+            "code": "RIDE_ASSIGNED"
+          }
+        },
+        "id": "fc65cee5-35a8-44be-b4c9-1d4ac83bd937",
+        "vehicle": {
+          "model": "Tahoe",
+          "color": "Green",
+          "variant": "SUV",
+          "registration": "4810"
+        },
+        "agent": {
+          "tags": {
+            "./komn/registered_at": "2022-04-12T15:15:42.21973Z"
+          },
+          "name": "Robert Fischer",
+          "phone": "+916666666666"
+
+        }
+      },
+      "state": "ACTIVE",
+      "id": "ed27fbd4-c91d-44b5-bedd-125171a06bc4"
+    },
+    "update_target": "state,fufillment.state.code,fulfillment.start.authorization,fulfillment.agent,fulfillment.vehicle"
+  },
+  "context": {
+    "country": "IND",
+    "bpp_uri": "http://localhost:8016/beckn/favorit0-0000-0000-0000-00000favorit",
+    "domain": "ONDC:TRV10",
+    "timestamp": "2023-06-29T18:17:02Z",
+    "bap_id": "JUSPAY.CABS.BAP",
+    "transaction_id": "a35b707d-9571-4ae0-b817-71b7ca039c08",
+    "bpp_id": "NAMMA_YATRI",
+    "message_id": "47eadc60-34f9-4296-a15d-fe58be4cfc2e",
+    "city": "Kochi",
+    "core_version": "0.9.3",
+    "action": "on_update",
+    "bap_uri": "http://localhost:8013/cab/v1"
+  }
+}

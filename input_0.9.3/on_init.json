@@ -1,0 +1,70 @@
+{
+  "message": {
+    "order": {
+      "state": "NEW",
+      "id": "ed27fbd4-c91d-44b5-bedd-125171a06bc4",
+      "quote": {
+        "breakup": [
+          {
+            "price": {
+              "currency": "INR",
+              "value": "201"
+            },
+            "title": "TOTAL_FARE"
+          },
+          {
+            "price": {
+              "currency": "INR",
+              "value": "10"
+            },
+            "title": "BASE_FARE"
+          },
+          {
+            "price": {
+              "currency": "INR",
+              "value": "120"
+            },
+            "title": "DEAD_KILOMETER_FARE"
+          },
+          {
+            "price": {
+              "currency": "INR",
+              "value": "71"
+            },
+            "title": "EXTRA_DISTANCE_FARE"
+          }
+        ],
+        "price": {
+          "currency": "INR",
+          "offered_value": "201",
+          "value": "201"
+        }
+      },
+      "payment": {
+        "type": "ON-FULFILLMENT",
+        "time": {
+          "duration": "FIXME"
+        },
+        "params": {
+          "currency": "INR",
+          "amount": "201"
+        }
+
+      }
+    }
+  },
+  "context": {
+    "country": "IND",
+    "bpp_uri": "http://localhost:8016/beckn/favorit0-0000-0000-0000-00000favorit",
+    "domain": "ONDC:TRV10",
+    "timestamp": "2023-06-29T18:17:01Z",
+    "bap_id": "JUSPAY.CABS.BAP",
+    "transaction_id": "a35b707d-9571-4ae0-b817-71b7ca039c08",
+    "bpp_id": "NAMMA_YATRI",
+    "message_id": "31ebf3c3-4be1-4af5-9289-7f91ae903e71",
+    "city": "Kochi",
+    "core_version": "0.9.3",
+    "action": "on_init",
+    "bap_uri": "http://localhost:8013/cab/v1"
+  }
+}

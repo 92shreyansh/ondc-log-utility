@@ -1,0 +1,66 @@
+{
+  "message": {
+    "order": {
+      "fulfillment": {
+        "start": {
+          "location": {
+            "address": {
+              "country": "India",
+              "building": "Juspay Buildings",
+              "state": "Karnataka",
+              "city": "Bangalore",
+              "locality": "8th Block Koramangala",
+              "door": "#444",
+              "area_code": "560047",
+              "street": "18th Main"
+            }
+          }
+        },
+        "end": {
+          "location": {
+            "address": {
+              "country": "India",
+              "building": "Juspay Apartments",
+              "state": "Karnataka",
+              "city": "Bangalore",
+              "locality": "6th Block Koramangala",
+              "door": "#444",
+              "area_code": "560047",
+              "street": "18th Main"
+            }
+          }
+        },
+        "customer": {
+          "contact": {
+            "phone": "+91-9898989898"
+          }
+        }
+      },
+      "id": "ed27fbd4-c91d-44b5-bedd-125171a06bc4",
+      "payment": {
+        "type": "ON-FULFILLMENT",
+        "time": {
+          "duration": "P2D"
+        },
+        "params": {
+          "currency": "INR",
+          "amount": "201"
+        }
+      }
+    }
+  },
+  "context": {
+    "country": "IND",
+    "bpp_uri": "http://localhost:8016/beckn/favorit0-0000-0000-0000-00000favorit",
+    "domain": "ONDC:TRV10",
+    "timestamp": "2023-06-29T18:17:01Z",
+    "bap_id": "JUSPAY.CABS.BAP",
+    "transaction_id": "a35b707d-9571-4ae0-b817-71b7ca039c08",
+    "bpp_id": "NAMMA_YATRI",
+    "message_id": "de86dd25-eb9b-4b4a-9161-11723c70011c",
+    "city": "Kochi",
+    "core_version": "0.9.3",
+    "action": "confirm",
+    "bap_uri": "http://localhost:8013/cab/v1"
+  }
+}

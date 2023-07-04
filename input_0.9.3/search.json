@@ -1,0 +1,49 @@
+{
+  "message": {
+    "intent": {
+      "fulfillment": {
+        "tags": {
+          "groups/1/descriptor/name": "Route Information",
+          "groups/1/descriptor/code": "route_info",
+          "groups/1/list/1/descriptor/name": "Distance Information In Meters",
+          "groups/1/list/1/descriptor/code": "distance_info_in_m",
+          "groups/1/list/1/value": "8955",
+          "groups/1/list/1/display": "false",
+          "groups/1/list/2/descriptor/name": "Duration Information In Seconds",
+          "groups/1/list/2/descriptor/code": "duration_info_in_s",
+          "groups/1/list/2/value": "1629",
+          "groups/1/list/2/display": "false",
+          "groups/1/list/3/descriptor/name": "Max estimated distance",
+          "groups/1/list/3/descriptor/code": "max_estimated_distance",
+          "groups/1/list/3/value": "1629",
+          "groups/1/list/3/display": "false"
+        },
+        "start": {
+          "time": {
+            "timestamp": "2023-06-29T18:16:46.02088Z"
+          },
+          "location": {
+            "gps": "12.939112, 77.623513"
+          }
+        },
+        "end": {
+          "location": {
+            "gps": "12.9995199, 77.6240279"
+          }
+        }
+      }
+    }
+  },
+  "context": {
+    "country": "IND",
+    "domain": "ONDC:TRV10",
+    "timestamp": "2023-06-29T18:16:46Z",
+    "bap_id": "api.beckn.juspay.in/pilot/app/cab/v1",
+    "transaction_id": "a35b707d-9571-4ae0-b817-71b7ca039c08",
+    "message_id": "a35b707d-9571-4ae0-b817-71b7ca039c08",
+    "city": "std:080",
+    "core_version": "0.9.3",
+    "action": "search",
+    "bap_uri": "https://api.beckn.juspay.in/pilot/app/cab/v1"
+  }
+}

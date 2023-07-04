@@ -1,0 +1,120 @@
+{
+  "message": {
+    "catalog": {
+      "bpp/providers": [
+        {
+          "id": "605e4bd5-d2a7-410e-92d6-4c145946ed76",
+          "descriptor": {
+            "name": "NammaYatri"
+          },
+          "locations": [
+            {
+              "lat": 12.9401108,
+              "lon": 77.6206631
+            },
+            {
+              "lat": 12.9401108,
+              "lon": 77.6206631
+            },
+            {
+              "lat": 12.9401108,
+              "lon": 77.6206631
+            }
+          ],
+          "fulfillments": [
+            {
+              "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+              "type": "DRIVER_OFFER_ESTIMATE",
+              "start": {
+                "time": {
+                  "timestamp": "2023-06-29T18:16:48.620635Z"
+                },
+                "location": {
+                  "gps": "12.939112, 77.623513"
+                }
+              },
+              "vehicle": {
+                "category": "AUTO"
+              },
+              "end": {
+                "location": {
+                  "gps": "12.9995199, 77.6240279"
+                }
+              }
+            }
+          ],
+          "items": [
+            {
+              "tags": {
+                "groups/1/descriptor/name": "Fare Policy",
+                "groups/1/descriptor/code": "fare_policy",
+                "groups/1/list/1/descriptor/name": "Base distance fare",
+                "groups/1/list/1/descriptor/code": "base_distance_fare",
+                "groups/1/list/1/value": "30",
+                "groups/1/list/2/descriptor/name": "Dead kilometer fare",
+                "groups/1/list/2/descriptor/code": "dead_kilometer_fare",
+                "groups/1/list/2/value": "10",
+                "groups/1/list/3/descriptor/name": "Driver extra fee min",
+                "groups/1/list/3/descriptor/code": "driver_extra_fee_min",
+                "groups/1/list/3/value": "10",
+                "groups/1/list/4/descriptor/name": "Driver extra fee max",
+                "groups/1/list/4/descriptor/code": "driver_extra_fee_max",
+                "groups/1/list/4/value": "30",
+                "groups/1/list/5/descriptor/name": "Per km fee",
+                "groups/1/list/5/descriptor/code": "extra_km_fee",
+                "groups/1/list/5/value": "15",
+                "groups/1/list/6/descriptor/name": "Waiting Charges Per Min",
+                "groups/1/list/6/descriptor/code": "waiting_charge_per_min",
+                "groups/1/list/6/value": "1",
+                "groups/2/descriptor/name": "General Information",
+                "groups/2/descriptor/code": "general_info",
+                "groups/2/list/1/descriptor/name": "Distance To Nearest Driver",
+                "groups/2/list/1/descriptor/code": "distance_to_nearest_driver",
+                "groups/2/list/1/value": "328"
+              },
+              "fulfillment_id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+              "id": "NAMMA_YATRI_AUTO",
+              "price": {
+                "maximum_value": "221",
+                "currency": "INR",
+                "offered_value": "211",
+                "minimum_value": "211",
+                "value": "211"
+              },
+              "descriptor": {
+                "short_desc": "NammaYatri Auto"
+              }
+            }
+          ],
+          "payments": [
+            {
+              "type": "ON-FULFILLMENT",
+              "time": {
+                "duration": "P2A"
+              }
+            }
+          ]
+        }
+      ],
+      "bpp/descriptor": {
+        "name": "NammaYatri",
+        "symbol": "https://www.nammayatri.com/images/logo.png"
+      }
+    }
+  },
+  "context": {
+    "country": "IND",
+    "domain": "ONDC:TRV10",
+    "timestamp": "2023-06-29T18:16:46Z",
+    "transaction_id": "a35b707d-9571-4ae0-b817-71b7ca039c08",
+    "message_id": "a35b707d-9571-4ae0-b817-71b7ca039c08",
+    "city": "std:080",
+    "core_version": "0.9.3",
+    "action": "on_search",
+    "bap_id": "api.beckn.juspay.in/pilot/app/cab/v1",
+    "bap_uri": "https://api.beckn.juspay.in/pilot/app/cab/v1",
+    "bpp_id": "api.beckn.juspay.in/dobpp/beckn/605e4bd5-d2a7-410e-92d6-4c145946ed76",
+    "bpp_uri": "https://api.beckn.juspay.in/dobpp/beckn/605e4bd5-d2a7-410e-92d6-4c145946ed76"
+  }
+}
+

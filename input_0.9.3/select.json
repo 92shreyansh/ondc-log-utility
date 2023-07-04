@@ -1,0 +1,57 @@
+{
+  "message": {
+    "order": {
+      "items": [
+        {
+          "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c"
+        }
+      ],
+      "fulfillment": {
+        "start": {
+          "location": {
+            "gps": "12.939112, 77.623513",
+            "address": {
+              "state": "Karnataka",
+              "city": "Bangalore",
+              "locality": "8th Block Koramangala",
+              "area_code": "560047"
+            }
+          }
+        },
+        "end": {
+          "location": {
+            "gps": "12.939112, 77.623513",
+            "address": {
+              "state": "Karnataka",
+              "city": "Bangalore",
+              "locality": "8th Block Koramangala",
+              "area_code": "560047"
+            }
+          }
+        },
+        "tags": {
+          "groups/1/descriptor/name": "General Info",
+          "groups/1/descriptor/code": "general_info",
+          "groups/1/display": "false",
+          "groups/1/list/1/descriptor/name": "Customer Tip Info",
+          "groups/1/list/1/descriptor/code": "customer_tip",
+          "groups/1/list/1/value": "10"
+        }
+      }
+    }
+  },
+  "context": {
+    "country": "IND",
+    "domain": "ONDC:TRV10",
+    "timestamp": "2023-06-29T18:16:46Z",
+    "bap_id": "api.beckn.juspay.in/pilot/app/cab/v1",
+    "transaction_id": "a35b707d-9571-4ae0-b817-71b7ca039c08",
+    "message_id": "a35b707d-9571-4ae0-b817-71b7ca039c08",
+    "city": "std:080",
+    "core_version": "0.9.3",
+    "action": "select",
+    "bap_uri": "https://api.beckn.juspay.in/pilot/app/cab/v1",
+    "bpp_id": "api.beckn.juspay.in/dobpp/beckn/605e4bd5-d2a7-410e-92d6-4c145946ed76",
+    "bpp_uri": "https://api.beckn.juspay.in/dobpp/beckn/605e4bd5-d2a7-410e-92d6-4c145946ed76"
+  }
+}
