@@ -46,7 +46,7 @@ async function validateData(data) {
 
 const validateSchema = async (schema, req_body) => {
   logger = log.init();
-  logger.info(
+  logger.debug(
     `Inside schema validation service for ${req_body?.context?.action} api`
   );
   try {
