@@ -1,50 +1,80 @@
 {
   "message": {
     "order": {
+      "items": [
+        {
+          "id": "NAMMA_YATRI_AUTO",
+          "price": {
+            "currency": "INR",
+            "value": "201"
+          }
+        }
+      ],
       "fulfillment": {
+        "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+        "type": "DRIVER_OFFER_ESTIMATE",
         "start": {
           "location": {
-            "address": {
-              "country": "India",
-              "building": "Juspay Buildings",
-              "state": "Karnataka",
-              "city": "Bangalore",
-              "locality": "8th Block Koramangala",
-              "door": "#444",
-              "area_code": "560047",
-              "street": "18th Main"
-            }
+            "gps": "12.939112, 77.623513"
           }
         },
         "end": {
           "location": {
-            "address": {
-              "country": "India",
-              "building": "Juspay Apartments",
-              "state": "Karnataka",
-              "city": "Bangalore",
-              "locality": "6th Block Koramangala",
-              "door": "#444",
-              "area_code": "560047",
-              "street": "18th Main"
-            }
+            "gps": "12.9995199, 77.6240279"
           }
+        },
+        "vehicle": {
+          "category": "AUTO_RICKSHAW"
         },
         "customer": {
           "contact": {
-            "phone": "+91-9898989898"
+            "phone": "+91-9876543210"
           }
         }
       },
-      "id": "ed27fbd4-c91d-44b5-bedd-125171a06bc4",
+      "quote": {
+        "price": {
+          "currency": "INR",
+          "value": "201"
+        },
+        "breakup": [
+          {
+            "price": {
+              "currency": "INR",
+              "value": "201"
+            },
+            "title": "TOTAL_FARE"
+          },
+          {
+            "price": {
+              "currency": "INR",
+              "value": "10"
+            },
+            "title": "BASE_FARE"
+          },
+          {
+            "price": {
+              "currency": "INR",
+              "value": "120"
+            },
+            "title": "DEAD_KILOMETER_FARE"
+          },
+          {
+            "price": {
+              "currency": "INR",
+              "value": "71"
+            },
+            "title": "EXTRA_DISTANCE_FARE"
+          }
+        ]
+      },
+      "provider": {
+        "id": "Driver-Offer-Provider #1"
+      },
       "payment": {
         "type": "ON-FULFILLMENT",
-        "time": {
-          "duration": "P2D"
-        },
-        "params": {
-          "currency": "INR",
-          "amount": "201"
+        "param": {
+          "mode": "PoD"
         }
       }
     }

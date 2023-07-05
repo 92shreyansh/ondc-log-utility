@@ -7,39 +7,22 @@
           "descriptor": {
             "name": "NammaYatri"
           },
-          "locations": [
-            {
-              "lat": 12.9401108,
-              "lon": 77.6206631
-            },
-            {
-              "lat": 12.9401108,
-              "lon": 77.6206631
-            },
-            {
-              "lat": 12.9401108,
-              "lon": 77.6206631
-            }
-          ],
           "fulfillments": [
             {
               "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
               "type": "DRIVER_OFFER_ESTIMATE",
               "start": {
-                "time": {
-                  "timestamp": "2023-06-29T18:16:48.620635Z"
-                },
                 "location": {
                   "gps": "12.939112, 77.623513"
                 }
-              },
-              "vehicle": {
-                "category": "AUTO"
               },
               "end": {
                 "location": {
                   "gps": "12.9995199, 77.6240279"
                 }
+              },
+              "vehicle": {
+                "category": "AUTO_RICKSHAW"
               }
             }
           ],
@@ -77,9 +60,8 @@
               "price": {
                 "maximum_value": "221",
                 "currency": "INR",
-                "offered_value": "211",
-                "minimum_value": "211",
-                "value": "211"
+                "offered_value": "201",
+                "minimum_value": "201"
               },
               "descriptor": {
                 "short_desc": "NammaYatri Auto"
@@ -89,8 +71,8 @@
           "payments": [
             {
               "type": "ON-FULFILLMENT",
-              "time": {
-                "duration": "P2A"
+              "param": {
+                "mode": "PoD"
               }
             }
           ]
@@ -98,7 +80,8 @@
       ],
       "bpp/descriptor": {
         "name": "NammaYatri",
-        "symbol": "https://www.nammayatri.com/images/logo.png"
+        "symbol": "https://www.nammayatri.com/images/logo.png",
+        "multi_select": true
       }
     }
   },

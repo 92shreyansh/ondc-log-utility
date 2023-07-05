@@ -1,9 +1,59 @@
 {
   "message": {
     "order": {
-      "state": "NEW",
-      "id": "ed27fbd4-c91d-44b5-bedd-125171a06bc4",
+      "items": [
+        {
+          "fulfillment_id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+          "id": "NAMMA_YATRI_AUTO",
+          "price": {
+            "currency": "INR",
+            "value": "211"
+          },
+          "descriptor": {
+            "short_desc": "NammaYatri Auto"
+          }
+        }
+      ],
+      "fulfillment": {
+        "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+        "type": "DRIVER_OFFER_ESTIMATE",
+        "start": {
+          "location": {
+            "gps": "12.939112, 77.623513"
+          }
+        },
+        "end": {
+          "location": {
+            "gps": "12.939112, 77.623513"
+          }
+        },
+        "vehicle": {
+          "category": "AUTO_RICKSHAW"
+        },
+        "agent": {
+          "name": "Robert",
+          "rateable": true,
+          "tags": {
+            "groups/1/descriptor/name": "Agent Info",
+            "groups/1/descriptor/code": "agent_info",
+            "groups/1/display": "true",
+            "group/1/list/1/list/name": "Agent Rating",
+            "group/1/list/1/list/code": "agent_rating",
+            "group/1/list/1/list/value": "4.2",
+            "group/1/list/2/list/name": "Agent Distance to Pickup",
+            "group/1/list/2/list/code": "distance_to_pickup_in_m",
+            "group/1/list/2/list/value": "1234",
+            "group/1/list/3/list/name": "Agent Duration to Pickup",
+            "group/1/list/3/list/code": "duration_to_pickup_in_s",
+            "group/1/list/3/list/value": "123"
+          }
+        }
+      },
       "quote": {
+        "price": {
+          "currency": "INR",
+          "value": "201"
+        },
         "breakup": [
           {
             "price": {
@@ -34,22 +84,16 @@
             "title": "EXTRA_DISTANCE_FARE"
           }
         ],
-        "price": {
-          "currency": "INR",
-          "offered_value": "201",
-          "value": "201"
-        }
+        "ttl": "PT10S"
+      },
+      "provider": {
+        "id": "Driver-Offer-Provider #1"
       },
       "payment": {
         "type": "ON-FULFILLMENT",
-        "time": {
-          "duration": "FIXME"
-        },
-        "params": {
-          "currency": "INR",
-          "amount": "201"
+        "param": {
+          "mode": "PoD"
         }
-
       }
     }
   },

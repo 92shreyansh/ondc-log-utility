@@ -2,37 +2,28 @@
   "message": {
     "order": {
       "fulfillment": {
+        "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+        "type": "DRIVER_OFFER_ESTIMATE",
         "start": {
           "authorization": {
             "type": "OTP",
             "token": "6440"
           }
         },
+        "agent": {
+          "name": "Robert",
+          "phone": "+916666666666"
+        },
         "state": {
           "descriptor":{
-            "code": "RIDE_ASSIGNED"
+            "code": "DRIVER_EN_ROUTE"
           }
-        },
-        "id": "fc65cee5-35a8-44be-b4c9-1d4ac83bd937",
-        "vehicle": {
-          "model": "Tahoe",
-          "color": "Green",
-          "variant": "SUV",
-          "registration": "4810"
-        },
-        "agent": {
-          "tags": {
-            "./komn/registered_at": "2022-04-12T15:15:42.21973Z"
-          },
-          "name": "Robert Fischer",
-          "phone": "+916666666666"
-
         }
       },
       "state": "ACTIVE",
       "id": "ed27fbd4-c91d-44b5-bedd-125171a06bc4"
     },
-    "update_target": "state,fufillment.state.code,fulfillment.start.authorization,fulfillment.agent,fulfillment.vehicle"
+    "update_target": "fufillment.state.descriptor.code,fulfillment.start.authorization,fulfillment.agent"
   },
   "context": {
     "country": "IND",

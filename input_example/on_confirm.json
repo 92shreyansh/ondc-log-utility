@@ -1,60 +1,61 @@
 {
   "message": {
     "order": {
+      "state": "ACTIVE",
+      "id": "ed27fbd4-c91d-44b5-bedd-125171a06bc4",
       "items": [
         {
+          "fulfillment_id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
           "id": "NAMMA_YATRI_AUTO",
+          "price": {
+            "currency": "INR",
+            "value": "211"
+          },
           "descriptor": {
-            "code": "ONE_WAY_TRIP_SUV"
+            "short_desc": "NammaYatri Auto"
           }
         }
       ],
       "fulfillment": {
+        "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+        "type": "DRIVER_OFFER_ESTIMATE",
         "start": {
-          "time": {
-            "timestamp": "2023-06-29T18:17:02.103693Z"
-          },
           "location": {
-            "gps": "12.939112, 77.623513",
-            "address": {
-
-              "country": "India",
-              "building": "Juspay Buildings",
-              "state": "Karnataka",
-              "city": "Bangalore",
-              "locality": "8th Block Koramangala",
-
-              "area_code": "560047",
-              "street": "18th Main"
-            }
-          }
-
-        },
-        "state": {
-          "descriptor": {
-            "code": "TRIP_ASSIGNED"
+            "gps": "12.939112, 77.623513"
           }
         },
         "end": {
           "location": {
-            "gps": "12.9995199, 77.6240279",
-            "address": {
-
-              "country": "India",
-              "building": "Juspay Apartments",
-              "state": "Karnataka",
-              "city": "Bangalore",
-              "locality": "6th Block Koramangala",
-
-              "area_code": "560047",
-              "street": "18th Main"
-            }
+            "gps": "12.939112, 77.623513"
+          }
+        },
+        "vehicle": {
+          "category": "AUTO_RICKSHAW",
+          "model": "Tahoe",
+          "color": "Green",
+          "variant": "Bajaje",
+          "registration": "4810"
+        },
+        "agent": {
+          "name": "Robert",
+          "rateable": true
+        },
+        "customer": {
+          "contact": {
+            "phone": "+91-9876543210"
+          }
+        },
+        "state": {
+          "descriptor": {
+            "code": "RIDE_ASSIGNED"
           }
         }
       },
-      "state": "ACTIVE",
-      "id": "ed27fbd4-c91d-44b5-bedd-125171a06bc4",
       "quote": {
+        "price": {
+          "currency": "INR",
+          "value": "201"
+        },
         "breakup": [
           {
             "price": {
@@ -91,21 +92,15 @@
             },
             "title": "EXTRA_DISTANCE_FARE"
           }
-        ],
-        "price": {
-          "currency": "INR",
-          "offered_value": "201",
-          "value": "201"
-        }
+        ]
+      },
+      "provider": {
+        "id": "Driver-Offer-Provider #1"
       },
       "payment": {
         "type": "ON-FULFILLMENT",
-        "time": {
-          "duration": "P2D"
-        },
-        "params": {
-          "currency": "INR",
-          "amount": "201"
+        "param": {
+          "mode": "PoD"
         }
       }
     }

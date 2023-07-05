@@ -3,39 +3,28 @@
     "order": {
       "items": [
         {
-          "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c"
+          "id": "NAMMA_YATRI_AUTO",
+          "price": {
+            "currency": "INR",
+            "value": "201"
+          }
         }
       ],
       "fulfillment": {
+        "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+        "type": "DRIVER_OFFER_ESTIMATE",
         "start": {
           "location": {
-            "gps": "12.939112, 77.623513",
-            "address": {
-              "state": "Karnataka",
-              "city": "Bangalore",
-              "locality": "8th Block Koramangala",
-              "area_code": "560047"
-            }
+            "gps": "12.939112, 77.623513"
           }
         },
         "end": {
           "location": {
-            "gps": "12.939112, 77.623513",
-            "address": {
-              "state": "Karnataka",
-              "city": "Bangalore",
-              "locality": "8th Block Koramangala",
-              "area_code": "560047"
-            }
+            "gps": "12.939112, 77.623513"
           }
         },
-        "tags": {
-          "groups/1/descriptor/name": "General Info",
-          "groups/1/descriptor/code": "general_info",
-          "groups/1/display": "false",
-          "groups/1/list/1/descriptor/name": "Customer Tip Info",
-          "groups/1/list/1/descriptor/code": "customer_tip",
-          "groups/1/list/1/value": "10"
+        "vehicle": {
+          "category": "AUTO_RICKSHAW"
         }
       }
     }
@@ -52,6 +41,7 @@
     "action": "select",
     "bap_uri": "https://api.beckn.juspay.in/pilot/app/cab/v1",
     "bpp_id": "api.beckn.juspay.in/dobpp/beckn/605e4bd5-d2a7-410e-92d6-4c145946ed76",
-    "bpp_uri": "https://api.beckn.juspay.in/dobpp/beckn/605e4bd5-d2a7-410e-92d6-4c145946ed76"
+    "bpp_uri": "https://api.beckn.juspay.in/dobpp/beckn/605e4bd5-d2a7-410e-92d6-4c145946ed76",
+    "max_callback": "3"
   }
 }

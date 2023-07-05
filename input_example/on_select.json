@@ -1,71 +1,90 @@
 {
   "message": {
     "order": {
+      "items": [
+        {
+          "fulfillment_id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+          "id": "NAMMA_YATRI_AUTO",
+          "price": {
+            "currency": "INR",
+            "value": "211"
+          },
+          "descriptor": {
+            "short_desc": "NammaYatri Auto"
+          }
+        }
+      ],
       "fulfillment": {
+        "id": "4a4502da-7d15-4d6a-8e78-18285bb02e2c",
+        "type": "DRIVER_OFFER_ESTIMATE",
         "start": {
           "location": {
-                  "gps": "12.939112, 77.623513",
-                  "address": {
-                      "state": "Karnataka",
-                      "city": "Bangalore",
-                      "locality": "8th Block Koramangala",
-                      "area_code": "560047"
-                    }
-                }
-        },
-        "id": "fulf_f88ef941-1158-4c0f-89e9-a93d0b5cfdf4",
-        "vehicle": {
-          "category": "SUV"
+            "gps": "12.939112, 77.623513"
+          }
         },
         "end": {
           "location": {
-                  "gps": "12.939112, 77.623513",
-                  "address": {
-                      "state": "Karnataka",
-                      "city": "Bangalore",
-                      "locality": "8th Block Koramangala",
-                      "area_code": "560047"
-                    }
-                }
+            "gps": "12.939112, 77.623513"
+          }
+        },
+        "vehicle": {
+          "category": "AUTO_RICKSHAW"
         },
         "agent": {
           "name": "Robert",
           "rateable": true,
-          "tags" : {
-          "groups/1/descriptor/name": "Agent Info",
-          "groups/1/descriptor/code": "agent_info",
-          "groups/1/display": "true",
-          "group/1/list/1/list/name" : "Agent Rating",
-          "group/1/list/1/list/code" : "agent_rating",
-					"group/1/list/1/list/value" : "4.2",
-          "group/1/list/2/list/name" : "Agent Distance to Pickup",
-          "group/1/list/2/list/code" : "distance_to_pickup_in_m",
-					"group/1/list/2/list/value" : "1234",
-          "group/1/list/3/list/name" : "Agent Duration to Pickup",
-          "group/1/list/3/list/code" : "duration_to_pickup_in_s",
-					"group/1/list/3/list/value" : "123"
+          "tags": {
+            "groups/1/descriptor/name": "Agent Info",
+            "groups/1/descriptor/code": "agent_info",
+            "groups/1/display": "true",
+            "group/1/list/1/list/name": "Agent Rating",
+            "group/1/list/1/list/code": "agent_rating",
+            "group/1/list/1/list/value": "4.2",
+            "group/1/list/2/list/name": "Agent Distance to Pickup",
+            "group/1/list/2/list/code": "distance_to_pickup_in_m",
+            "group/1/list/2/list/value": "1234",
+            "group/1/list/3/list/name": "Agent Duration to Pickup",
+            "group/1/list/3/list/code": "duration_to_pickup_in_s",
+            "group/1/list/3/list/value": "123"
           }
         }
       },
-      "items": [
-        {
-          "fulfillment_id": "fulf_f88ef941-1158-4c0f-89e9-a93d0b5cfdf4",
-          "id": "f88ef941-1158-4c0f-89e9-a93d0b5cfdf4"
-        }
-      ],
-      "quote" : {
-          "price": {
-            "currency": "INR",
-            "offered_value": "201",
-            "value": "201"
+      "quote": {
+        "price": {
+          "currency": "INR",
+          "value": "201"
+        },
+        "breakup": [
+          {
+            "price": {
+              "currency": "INR",
+              "value": "201"
+            },
+            "title": "TOTAL_FARE"
           },
-         "ttl" : "P23S" 
-      },
-      "payment": {
-        "type": "ON-FULFILLMENT",
-        "time": {
-          "duration": "P2A"
-        }
+          {
+            "price": {
+              "currency": "INR",
+              "value": "10"
+            },
+            "title": "BASE_FARE"
+          },
+          {
+            "price": {
+              "currency": "INR",
+              "value": "120"
+            },
+            "title": "DEAD_KILOMETER_FARE"
+          },
+          {
+            "price": {
+              "currency": "INR",
+              "value": "71"
+            },
+            "title": "EXTRA_DISTANCE_FARE"
+          }
+        ],
+        "ttl": "PT20S"
       },
       "provider": {
         "id": "Driver-Offer-Provider #1"
