@@ -2,44 +2,44 @@ logs:
   search:
     - id: search
       data:
-        $ref: "./input/search.json"
+        $ref: "./logs/input/search.json"
   on_search:
     - id: on_search
       data:
-        $ref: "./input/on_search.json"
+        $ref: "./logs/input/on_search.json"
   select:
     - id: select
       data:
-        $ref: "./input/select.json"
+        $ref: "./logs/input/select.json"
   on_select:
     - id: on_select
       data:
-        $ref: "./input/on_select.json"
+        $ref: "./logs/input/on_select.json"
   init:
     - id: init
       data:
-        $ref: "./input/init.json"
+        $ref: "./logs/input/init.json"
   on_init:
     - id: on_init
       data:
-        $ref: "./input/on_init.json"
+        $ref: "./logs/input/on_init.json"
   confirm:
     - id: confirm
       data:
-        $ref: "./input/confirm.json"
+        $ref: "./logs/input/confirm.json"
   on_confirm:
     - id: on_confirm
       data:
-        $ref: "./input/on_confirm.json"
+        $ref: "./logs/input/on_confirm.json"
   track:
     - id: track
       data:
-        $ref: "./input/track.json"
+        $ref: "./logs/input/track.json"
   on_track:
     - id: on_track
       data:
-        $ref: "./input/on_track.json"
+        $ref: "./logs/input/on_track.json"
   on_update:
     - id: on_update
       data: 
-        $ref: "./input/on_update.json"
+        $ref: "./logs/input/on_update.json"
