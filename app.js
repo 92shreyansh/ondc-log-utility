@@ -22,10 +22,9 @@ async function startUp() {
     const logger = log.init();
     await input.loadInput(inputFile);
     // console.log(input.getInput())
-    let inputData = input.getInput();
-    for (let api in inputData["api"]) {
-        // console.log(inputData["api"][api])
-        let payloads = inputData["api"][api]
+    let inputLogs = input.getInput()["logs"];
+    for (let api in inputLogs) {
+        let payloads = inputLogs[api]
         for (let payload of payloads) {
             // console.log(payload)
             let req_body = payload["data"]

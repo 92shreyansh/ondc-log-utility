@@ -1,4 +1,4 @@
-api:
+logs:
   search:
     - id: search
       data:
@@ -8,27 +8,27 @@ api:
       data:
         $ref: "./input/on_search.json"
   select:
-    - id: 1
+    - id: select
       data:
         $ref: "./input/select.json"
   on_select:
-    - id: 1
+    - id: on_select
       data:
         $ref: "./input/on_select.json"
   init:
-    - id: 1
+    - id: init
       data:
         $ref: "./input/init.json"
   on_init:
-    - id: 1
+    - id: on_init
       data:
         $ref: "./input/on_init.json"
   confirm:
-    - id: 1
+    - id: confirm
       data:
         $ref: "./input/confirm.json"
   on_confirm:
-    - id: 1
+    - id: on_confirm
       data:
         $ref: "./input/on_confirm.json"
   track:
