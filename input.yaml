@@ -1,3 +1,22 @@
+flow:
+  - id: message_id
+    api_seq: search,on_search,init,on_init,init,on_init,confirm,on_confirm,on_update,on_update,on_update
+    id_seq: search,on_search,init1,on_init1,init2,on_init2,confirm,on_confirm,on_update,on_update,on_update
+  - id: txn_id_check
+    api_seq: search,on_search,init,on_init,init,on_init,confirm,on_confirm,on_update,on_update,on_update
+    id_seq: search,on_search,init1,on_init1,init2,on_init2,confirm,on_confirm,on_update,on_update,on_update
+  - id: timestamp_check
+    #api_seq: search,on_search,init,on_init,confirm,on_confirm,on_update,on_update,on_update
+    id_seq: search,on_search,init,on_init,confirm,on_confirm,on_update,on_update,on_update
+  - id: domain_check
+    #api_seq: search,on_search,init,on_init,confirm,on_confirm,on_update,on_update,on_update
+    id_seq: search,on_search,init,on_init,confirm,on_confirm,on_update,on_update,on_update
+  - id: country_check
+    #api_seq: search,on_search,init,on_init,confirm,on_confirm,on_update,on_update,on_update
+    id_seq: search,on_search,init,on_init,confirm,on_confirm,on_update,on_update,on_update
+  - id: bpp_id_check
+    #api_seq: search,on_search,init,on_init,confirm,on_confirm,on_update,on_update,on_update
+    id_seq: search,on_search,init,on_init,confirm,on_confirm,on_update,on_update,on_update  
 logs:
   search:
     - id: search
@@ -7,14 +26,14 @@ logs:
     - id: on_search
       data:
         $ref: "./logs/input/on_search.json"
-  select:
-    - id: select
-      data:
-        $ref: "./logs/input/select.json"
-  on_select:
-    - id: on_select
-      data:
-        $ref: "./logs/input/on_select.json"
+  # select:
+  #   - id: select
+  #     data:
+  #       $ref: "./logs/input/select.json"
+  # on_select:
+  #   - id: on_select
+  #     data:
+  #       $ref: "./logs/input/on_select.json"
   init:
     - id: init
       data:
