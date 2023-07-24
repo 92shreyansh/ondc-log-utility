@@ -1,6 +1,5 @@
 type: object
 additionalProperties: false
-additionaProperties: false
 properties:
   context:
     allOf:
@@ -29,7 +28,6 @@ properties:
           during all interactions,
         type: object
         additionalProperties: false
-        additionaProperties: false
         properties:
           domain:
             description: Domain code that is relevant to this transaction context
@@ -45,7 +43,6 @@ properties:
               - description: The physical location of something
                 type: object
                 additionalProperties: false
-                additionaProperties: false
                 properties:
                   id:
                     type: string
@@ -65,7 +62,6 @@ properties:
                       additional_desc:
                         type: object
                         additionalProperties: false
-                        additionaProperties: false
                         properties:
                           url:
                             type: string
@@ -81,7 +77,6 @@ properties:
                           description: This object contains a url to a media file.
                           type: object
                           additionalProperties: false
-                          additionaProperties: false
                           properties:
                             mimetype:
                               description: >-
@@ -107,7 +102,6 @@ properties:
                           description: Describes an image
                           type: object
                           additionalProperties: false
-                          additionaProperties: false
                           properties:
                             url:
                               description: >-
@@ -159,7 +153,6 @@ properties:
                       - description: Describes a city
                         type: object
                         additionalProperties: false
-                        additionaProperties: false
                         properties:
                           name:
                             description: Name of the city
@@ -178,7 +171,6 @@ properties:
                           country.
                         type: object
                         additionalProperties: false
-                        additionaProperties: false
                         properties:
                           name:
                             type: string
@@ -194,7 +186,6 @@ properties:
                       - description: Describes a country
                         type: object
                         additionalProperties: false
-                        additionaProperties: false
                         properties:
                           name:
                             type: string
@@ -212,14 +203,12 @@ properties:
                       at a specified GPS coordinate.
                     type: object
                     additionalProperties: false
-                    additionaProperties: false
                     properties:
                       gps: *ref_0
                       radius:
                         description: Describes a scalar
                         type: object
                         additionalProperties: false
-                        additionaProperties: false
                         properties:
                           type:
                             type: string
@@ -235,7 +224,6 @@ properties:
                           range:
                             type: object
                             additionalProperties: false
-                            additionaProperties: false
                             properties:
                               min: *ref_1
                               max: *ref_1
@@ -331,9 +319,8 @@ properties:
         required:
           - action
   message:
-    type: object
+    type: object 
     additionalProperties: false
-    additionaProperties: false
     properties:
       order_id:
         type: string

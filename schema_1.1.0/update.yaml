@@ -744,6 +744,7 @@ properties:
                                     confirmed, like in the case of on-demand
                                     taxis, where the driver is assigned after
                                     the user confirms the ride.
+                                  type: obejct
                                   properties:
                                     person: *ref_11
                                     contact: *ref_12
